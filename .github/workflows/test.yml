@@ -16,9 +16,8 @@ jobs:
             RUST_LOG: "0"
         steps:
             - uses: actions/checkout@v3
-            - uses: actions-rs/toolchain@v1
+            - uses: dtolnay/rust-toolchain@stable
               with:
-                  profile: minimal
                   components: rustfmt
 
             - run: cargo fmt -- --check
@@ -28,47 +27,28 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: actions-rs/toolchain@v1
+            - uses: dtolnay/rust-toolchain@stable
               with:
-                  profile: minimal
                   components: clippy
 
             - run: cargo clippy
 
-    cargo-check:
-        name: Check
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions-rs/toolchain@v1
-              with:
-                  profile: minimal
-
-            - run: cargo check
-
     cargo-test:
-        name: Test
+        name: Cargo Test
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: actions-rs/toolchain@v1
-              with:
-                  profile: minimal
+            - uses: dtolnay/rust-toolchain@stable
 
             - run: cargo check
-
-            - uses: actions/setup-node@v3
-              with:
-                  node-version-file: ".node-version"
+            - run: cargo test
 
     wasm-test:
         name: Wasm Test
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: actions-rs/toolchain@v1
-              with:
-                  profile: minimal
+            - uses: dtolnay/rust-toolchain@stable
 
             - name: Install wasm-pack
               run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
