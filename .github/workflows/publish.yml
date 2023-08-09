@@ -21,7 +21,7 @@ jobs:
               run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
             - name: Build wasm
-              run: ./scripts/build.sh
+              run: ./crates/ruff_fmt/scripts/build.sh
 
             - uses: actions/setup-node@v3
               with:
@@ -29,7 +29,7 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - run: |
-                  cd pkg
+                  cd crates/ruff_fmt/pkg
                   npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
               run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
             - name: Build wasm
-              run: ./scripts/build.sh
+              run: ./crates/ruff_fmt/scripts/build.sh
 
             - uses: actions/setup-node@v3
               with:
@@ -55,7 +55,7 @@ jobs:
                   registry-url: "https://npm.pkg.github.com"
 
             - run: |
-                  cd pkg
+                  cd crates/ruff_fmt/pkg
                   npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

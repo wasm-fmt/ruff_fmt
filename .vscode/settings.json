@@ -1,0 +1,6 @@
+{
+    "deno.enable": true,
+    "deno.enablePaths": [
+        "./crates/ruff_fmt/test_deno"
+    ]
+}

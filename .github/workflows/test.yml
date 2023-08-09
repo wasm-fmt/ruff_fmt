@@ -52,7 +52,7 @@ jobs:
               run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
             - name: Build wasm
-              run: ./scripts/build.sh
+              run: ./crates/ruff_fmt/scripts/build.sh
 
             - uses: actions/setup-node@v3
               with:
@@ -60,3 +60,10 @@ jobs:
 
             - name: Node Test
               run: node --test
+
+            - uses: denoland/setup-deno@v1
+              with:
+                  deno-version: v1.x
+
+            - name: Deno Test
+              run: deno test --allow-read
