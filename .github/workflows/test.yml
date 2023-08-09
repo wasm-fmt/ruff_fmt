@@ -34,7 +34,7 @@ jobs:
             - run: cargo clippy
 
     cargo-test:
-        name: Cargo Test
+        name: Cargo test
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
             - run: cargo test
 
     wasm-test:
-        name: Wasm Test
+        name: Wasm test
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
