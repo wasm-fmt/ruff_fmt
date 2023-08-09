@@ -1,3 +1,6 @@
+[![Test](https://github.com/wasm-fmt/ruff_fmt/actions/workflows/test.yml/badge.svg)](https://github.com/wasm-fmt/ruff_fmt/actions/workflows/test.yml)
+[![npm](https://img.shields.io/npm/v/@wasm-fmt/ruff_fmt)](https://www.npmjs.com/package/@wasm-fmt/ruff_fmt)
+
 # Install
 
 ```bash
@@ -31,6 +34,7 @@ console.log(formatted);
 ```
 
 For Vite users:
+
 ```JavaScript
 import init, { format } from "@wasm-fmt/ruff_fmt/vite";
 
