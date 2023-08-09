@@ -1,0 +1,61 @@
+name: Publish
+
+on:
+    create:
+        tags:
+            - "v*"
+
+env:
+    CARGO_INCREMENTAL: 0
+    RUST_LOG: "off"
+
+jobs:
+    publish-npm:
+        if: startsWith(github.ref, 'refs/tags/v')
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: dtolnay/rust-toolchain@stable
+
+            - name: Install wasm-pack
+              run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+            - name: Build wasm
+              run: ./scripts/build.sh
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version-file: ".node-version"
+                  registry-url: "https://registry.npmjs.org"
+
+            - run: |
+                  cd pkg
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    publish-github:
+        if: startsWith(github.ref, 'refs/tags/v')
+        runs-on: ubuntu-latest
+        permissions:
+            packages: write
+        steps:
+            - uses: actions/checkout@v3
+            - uses: dtolnay/rust-toolchain@stable
+
+            - name: Install wasm-pack
+              run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+            - name: Build wasm
+              run: ./scripts/build.sh
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version-file: ".node-version"
+                  registry-url: "https://npm.pkg.github.com"
+
+            - run: |
+                  cd pkg
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
