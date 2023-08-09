@@ -1,0 +1,24 @@
+diff --git a/./pkg/ruff_fmt.js b/./ruff_fmt.js
+index 01234567..89abcdef 100644
+--- a/pkg/ruff_fmt.js
++++ b/pkg/ruff_fmt.js
+@@ -221,8 +221,17 @@ async function __wbg_init(input) {
+     }
+     const imports = __wbg_get_imports();
+ 
+-    if (typeof input === 'string' || (typeof Request === 'function' && input instanceof Request) || (typeof URL === 'function' && input instanceof URL)) {
+-        input = fetch(input);
++    switch (true) {
++        case typeof input === 'string':
++            input = new URL(input, import.meta.url);
++        case input instanceof URL:
++            if (typeof __webpack_require__ !== 'function' && input.protocol === 'file:') {
++                const fs = await import('node:fs/promises');
++                input = fs.readFile(input);
++                break;
++            }
++        case typeof Request === 'function' && input instanceof Request:
++            input = fetch(input);
+     }
+ 
+     __wbg_init_memory(imports);
