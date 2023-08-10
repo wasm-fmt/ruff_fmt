@@ -1,0 +1,9 @@
+{
+  "includes": [
+    "*.py"
+  ],
+  "excludes": [],
+  "plugins": [
+    "target/wasm32-unknown-unknown/release/ruff_fmt_dprint.wasm"
+  ]
+}

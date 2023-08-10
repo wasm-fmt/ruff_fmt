@@ -15,7 +15,8 @@ members = ["crates/*"]
 
 
     [workspace.dependencies]
-    ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.0.282" }
+    ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", rev = "dc3275fe7f1a6b3f611613d08e69c084dcf5a3e5" }
+    ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", rev = "dc3275fe7f1a6b3f611613d08e69c084dcf5a3e5" }
     wasm-bindgen          = "0.2.87"
 
 [profile.release]

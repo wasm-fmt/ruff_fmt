@@ -15,7 +15,7 @@ ruff_python_formatter = { workspace = true }
 wasm-bindgen          = { workspace = true }
 
 [dev-dependencies]
-testing_macros = "0.2.9"
+testing_macros = "0.2.11"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
