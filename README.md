@@ -40,3 +40,9 @@ import init, { format } from "@wasm-fmt/ruff_fmt/vite";
 
 // ...
 ```
+
+# dprint plugin
+
+```bash
+dprint config add wasm-fmt/ruff_fmt
+```
