@@ -59,3 +59,42 @@ jobs:
                   npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    publish-github-release:
+        if: startsWith(github.ref, 'refs/tags/v')
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v3
+            - uses: dtolnay/rust-toolchain@stable
+              with:
+                  targets: wasm32-unknown-unknown
+
+            - name: Install wasm-pack
+              run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+            - name: Build wasm
+              run: |
+                  # build for JS API
+                  ./crates/ruff_fmt/scripts/build.sh
+                  (cd crates/ruff_fmt/pkg && npm pack)
+                  # build for dprint plugin
+                  cargo build --release --target=wasm32-unknown-unknown -p ruff_fmt_dprint
+
+            - name: Get tag version
+              id: get_tag_version
+              run: echo "TAG_VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
+
+            - name: Pre-release
+              run: |
+                  sed -i 's/ruff_fmt\/0.0.0/ruff_fmt\/${{ steps.get_tag_version.outputs.TAG_VERSION }}/' crates/ruff_fmt_dprint/schema.json
+                  (cd target/wasm32-unknown-unknown/release/ && mv ruff_fmt_dprint.wasm plugin.wasm)
+
+            - name: Release
+              uses: softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d
+              with:
+                  files: |
+                      crates/ruff_fmt/pkg/wasm-fmt-ruff_fmt-*.tgz
+                      crates/ruff_fmt_dprint/schema.json
+                      target/wasm32-unknown-unknown/release/plugin.wasm
