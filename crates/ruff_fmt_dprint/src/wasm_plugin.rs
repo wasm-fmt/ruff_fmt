@@ -39,7 +39,7 @@ impl SyncPluginHandler<Configuration> for RuffFmtWasmPlugin {
     fn plugin_info(&mut self) -> SyncPluginInfo {
         let version = env!("CARGO_PKG_VERSION").to_string();
         let config_schema_url =
-            format!("https://plugins.dprint.dev/wasm-fmt/ruff_fmt/{}/schema.json", version);
+            format!("https://plugins.dprint.dev/wasm-fmt/ruff_fmt/v{}/schema.json", version);
 
         SyncPluginInfo {
             info: PluginInfo {
