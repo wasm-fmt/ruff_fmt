@@ -14,7 +14,7 @@ mod tests {
         File::open(&input).and_then(|mut file| file.read_to_string(&mut actual)).unwrap();
 
         let mut expect = String::new();
-        File::open(&extect_path).and_then(|mut file| file.read_to_string(&mut expect)).unwrap();
+        File::open(extect_path).and_then(|mut file| file.read_to_string(&mut expect)).unwrap();
 
         let actual = format(&actual).unwrap();
 

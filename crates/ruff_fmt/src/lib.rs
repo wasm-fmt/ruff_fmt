@@ -10,4 +10,3 @@ pub fn format(input: &str) -> Result<String, String> {
         .map(|result| result.as_code().to_string())
         .map_err(|err| err.to_string())
 }
-
