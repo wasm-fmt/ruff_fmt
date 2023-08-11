@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://plugins.dprint.dev/wasm-fmt/ruff_fmt/0.0.0/schema.json",
+    "type": "object",
+    "properties": {
+        "indentStyle": {
+            "description": "Specifies the indent style:\n* Either a tab\n* or a specific amount of spaces",
+            "default": 4,
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "const": "tab"
+                }
+            ],
+            "examples": [
+                2,
+                4,
+                8,
+                "tab"
+            ]
+        },
+        "lineWidth": {
+            "description": "The preferred line width at which the formatter should wrap lines.",
+            "default": 88,
+            "type": "number"
+        },
+        "quoteStyle": {
+            "description": "The preferred line width at which the formatter should wrap lines.",
+            "default": "double",
+            "type": "string",
+            "enum": [
+                "double",
+                "single",
+                "\"",
+                "'"
+            ]
+        },
+        "magicTrailingComma": {
+            "description": "Whether to expand lists or elements if they have a trailing comma such as `(a, b,)`",
+            "default": "respect",
+            "type": "string",
+            "enum": [
+                "respect",
+                "ignore"
+            ]
+        }
+    }
+}

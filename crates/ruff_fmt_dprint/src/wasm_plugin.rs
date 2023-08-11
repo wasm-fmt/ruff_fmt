@@ -37,14 +37,20 @@ impl SyncPluginHandler<Configuration> for RuffFmtWasmPlugin {
     }
 
     fn plugin_info(&mut self) -> SyncPluginInfo {
+        let version = env!("CARGO_PKG_VERSION").to_string();
+        let config_schema_url =
+            format!("https://plugins.dprint.dev/wasm-fmt/ruff_fmt/{}/schema.json", version);
+
         SyncPluginInfo {
             info: PluginInfo {
                 name: "ruff_fmt".to_string(),
-                version: env!("CARGO_PKG_VERSION").to_string(),
+                version,
                 config_key: "python".to_string(),
-                help_url: env!("CARGO_PKG_HOMEPAGE").to_string(),
-                config_schema_url: "".to_string(),
-                update_url: None,
+                help_url: format!("{}/issues", env!("CARGO_PKG_REPOSITORY")),
+                config_schema_url,
+                update_url: Some(
+                    "https://plugins.dprint.dev/wasm-fmt/ruff_fmt/latest.json".to_string(),
+                ),
             },
             file_matching: FileMatchingInfo {
                 file_extensions: vec!["py".to_string()],
