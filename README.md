@@ -33,6 +33,21 @@ const formatted = format(input);
 console.log(formatted);
 ```
 
+with custom options:
+
+```javascript
+import init, { format_with_config } from "@wasm-fmt/ruff_fmt";
+
+// ...
+const formatted = format_with_config(input, {
+    indent_style: 4,
+    line_width: 88,
+    quote_style: "double",
+    magic_trailing_comma: "respect",
+});
+console.log(formatted);
+```
+
 For Vite users:
 
 ```JavaScript
@@ -46,3 +61,11 @@ import init, { format } from "@wasm-fmt/ruff_fmt/vite";
 ```bash
 dprint config add wasm-fmt/ruff_fmt
 ```
+
+# How does it work?
+
+[Ruff] is an extremely fast Python linter, written in Rust.
+
+This package is a WebAssembly build of Ruff formatter, with a JavaScript wrapper.
+
+[Ruff]: https://github.com/astral-sh/ruff
