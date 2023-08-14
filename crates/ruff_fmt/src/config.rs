@@ -2,7 +2,10 @@ use std::borrow::Cow;
 
 use ruff_formatter::{IndentStyle as RuffIndentStyle, LineWidth};
 use ruff_python_formatter::{MagicTrailingComma, PyFormatOptions, QuoteStyle};
-use serde::{de::Error, Deserialize, Deserializer};
+use serde::{
+    de::{Error, Unexpected},
+    Deserialize, Deserializer,
+};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen(typescript_custom_section)]
@@ -67,7 +70,9 @@ impl<'de> Deserialize<'de> for IndentStyle {
         match IndentStyle::deserialize(deserializer)? {
             IndentStyle::Space(n) => Ok(Self::Space(n)),
             IndentStyle::Tab(c) if c == "tab" => Ok(Self::Tab),
-            IndentStyle::Tab(other) => Err(Error::unknown_variant(&other, &["number", "\"tab\""])),
+            IndentStyle::Tab(other) => {
+                Err(D::Error::invalid_value(Unexpected::Str(&other), &"<number> or `tab`"))
+            }
         }
     }
 }
