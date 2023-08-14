@@ -67,3 +67,6 @@ jobs:
 
             - name: Deno Test
               run: deno test --allow-read
+
+            - name: npm pack
+              run: cd crates/ruff_fmt/pkg && npm pack
