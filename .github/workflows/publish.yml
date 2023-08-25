@@ -13,6 +13,8 @@ jobs:
     publish-npm:
         if: startsWith(github.ref, 'refs/tags/v')
         runs-on: ubuntu-latest
+        permissions:
+            id-token: write
         steps:
             - uses: actions/checkout@v3
             - uses: dtolnay/rust-toolchain@stable
@@ -30,7 +32,7 @@ jobs:
 
             - run: |
                   cd crates/ruff_fmt/pkg
-                  npm publish
+                  npm publish --provenance
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
