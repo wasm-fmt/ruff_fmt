@@ -36,10 +36,10 @@ console.log(formatted);
 with custom options:
 
 ```javascript
-import init, { format_with_config } from "@wasm-fmt/ruff_fmt";
+import init, { format } from "@wasm-fmt/ruff_fmt";
 
 // ...
-const formatted = format_with_config(input, {
+const formatted = format(input, {
     indent_style: 4,
     line_width: 88,
     quote_style: "double",

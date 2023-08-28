@@ -17,7 +17,7 @@ export interface Config {
     magic_trailing_comma?: "respect" | "ignore";
 }"#;
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Default)]
 #[serde(rename_all = "snake_case")]
 pub(crate) struct Config {
     indent_style: Option<IndentStyle>,

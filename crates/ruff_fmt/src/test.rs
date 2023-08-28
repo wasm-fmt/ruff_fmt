@@ -16,7 +16,7 @@ mod tests {
         let mut expect = String::new();
         File::open(extect_path).and_then(|mut file| file.read_to_string(&mut expect)).unwrap();
 
-        let actual = format(&actual).unwrap();
+        let actual = format(&actual, None).unwrap();
 
         assert_eq!(actual, expect);
     }
