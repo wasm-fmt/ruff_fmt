@@ -6,7 +6,7 @@ use config::Config as InnerConfig;
 use ruff_python_formatter::format_module;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(skip_typescript)]
+#[wasm_bindgen]
 pub fn format(input: &str, config: Option<Config>) -> Result<String, String> {
     let config: InnerConfig = if let Some(config) = config {
         serde_wasm_bindgen::from_value(config.clone()).map_err(|op| op.to_string())?
