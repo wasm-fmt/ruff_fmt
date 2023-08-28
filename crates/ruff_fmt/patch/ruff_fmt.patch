@@ -1,8 +1,17 @@
 diff --git a/crates/ruff_fmt/pkg/ruff_fmt.js b/crates/ruff_fmt/pkg/ruff_fmt.js
-index 7452d63..09453f9 100644
+index abaccc1..724a315 100644
 --- a/crates/ruff_fmt/pkg/ruff_fmt.js
 +++ b/crates/ruff_fmt/pkg/ruff_fmt.js
-@@ -543,8 +543,17 @@ async function __wbg_init(input) {
+@@ -199,7 +199,7 @@ function debugString(val) {
+ }
+ /**
+ * @param {string} input
+-* @param {Config | undefined} config
++* @param {Config | undefined} [config]
+ * @returns {string}
+ */
+ export function format(input, config) {
+@@ -504,8 +504,17 @@ async function __wbg_init(input) {
      }
      const imports = __wbg_get_imports();
  
