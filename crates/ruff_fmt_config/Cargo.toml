@@ -1,22 +1,16 @@
 [package]
 authors.workspace    = true
-description          = "Python formatting plugin for dprint via ruff."
+description          = "Config for ruff_fmt"
 edition.workspace    = true
 homepage.workspace   = true
 keywords.workspace   = true
 license.workspace    = true
-name                 = "ruff_fmt_dprint"
+name                 = "ruff_fmt_config"
 repository.workspace = true
 version.workspace    = true
 
-[lib]
-crate-type = ["lib", "cdylib"]
-
 
 [dependencies]
-anyhow                = "1.0.75"
-dprint-core           = { version = "0.63.2", features = ["wasm"] }
-ruff_fmt_config       = { workspace = true }
 ruff_formatter        = { workspace = true }
 ruff_python_formatter = { workspace = true }
 serde                 = { workspace = true, features = ["derive"] }

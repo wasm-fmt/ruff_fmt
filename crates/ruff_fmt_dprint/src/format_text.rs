@@ -4,7 +4,7 @@ use ruff_python_formatter::format_module;
 use super::configuration::Configuration;
 
 pub fn format_text(text: &str, config: &Configuration) -> FormatResult {
-    format_module(text, config.clone())
+    format_module(text, config.clone().into())
         .map_err(|err| err.into())
         .map(|result| (result.as_code() != text).then_some(result.into_code()))
 }

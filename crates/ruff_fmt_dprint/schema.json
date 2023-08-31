@@ -4,24 +4,19 @@
     "type": "object",
     "properties": {
         "indentStyle": {
-            "description": "Specifies the indent style:\n* Either a tab\n* or a specific amount of spaces",
-            "default": 4,
-            "oneOf": [
-                {
-                    "type": "number",
-                    "minimum": 0,
-                    "maximum": 255
-                },
-                {
-                    "const": "tab"
-                }
-            ],
-            "examples": [
-                2,
-                4,
-                8,
+            "description": "Specifies the indent style, either space or tab.",
+            "default": "space",
+            "enum": [
+                "space",
                 "tab"
             ]
+        },
+        "indentWidth": {
+            "description": "The number of width to use for each indent.",
+            "default": 4,
+            "type": "number",
+            "minimum": 1,
+            "maximum": 255
         },
         "lineWidth": {
             "description": "The preferred line width at which the formatter should wrap lines.",

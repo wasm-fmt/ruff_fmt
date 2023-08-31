@@ -1,7 +1,9 @@
-use super::{indent_style_from_global_config, line_width_from_global_config, Configuration};
+use super::{
+    indent_style_from_global_config, indent_width_from_global_config,
+    line_width_from_global_config, Configuration,
+};
 use dprint_core::configuration::*;
-use ruff_formatter::FormatOptions;
-use ruff_python_formatter::{MagicTrailingComma, QuoteStyle};
+use ruff_python_formatter::{MagicTrailingComma, PyFormatOptions, QuoteStyle};
 
 pub fn resolve_config(
     config: ConfigKeyMap,
@@ -10,18 +12,27 @@ pub fn resolve_config(
     let mut diagnostics = Vec::new();
     let mut config = config;
 
+    let default_ruff_config = PyFormatOptions::default();
     let default_config = Configuration::default();
 
     let indent_style = get_value(
         &mut config,
         "indentStyle",
-        indent_style_from_global_config(global_config).unwrap_or(default_config.indent_style()),
+        indent_style_from_global_config(global_config, &default_ruff_config),
         &mut diagnostics,
     );
+
+    let indent_width = get_value(
+        &mut config,
+        "indentWidth",
+        indent_width_from_global_config(global_config, &default_ruff_config),
+        &mut diagnostics,
+    );
+
     let line_width = get_value(
         &mut config,
         "lineWidth",
-        line_width_from_global_config(global_config).unwrap_or(default_config.line_width()),
+        line_width_from_global_config(global_config, &default_ruff_config),
         &mut diagnostics,
     );
 
@@ -38,6 +49,7 @@ pub fn resolve_config(
 
     let resolved_config = default_config
         .with_indent_style(indent_style)
+        .with_indent_width(indent_width)
         .with_line_width(line_width)
         .with_quote_style(quote_style)
         .with_magic_trailing_comma(magic_trailing_comma);
