@@ -40,7 +40,8 @@ import init, { format } from "@wasm-fmt/ruff_fmt";
 
 // ...
 const formatted = format(input, {
-    indent_style: 4,
+    indent_style: "space",
+    indent_width: 4,
     line_width: 88,
     quote_style: "double",
     magic_trailing_comma: "respect",
