@@ -1,30 +1,33 @@
+/// <reference lib="deno.ns" />
+import { assertEquals } from "https://deno.land/std@0.201.0/assert/mod.ts";
+import { walk } from "https://deno.land/std@0.201.0/fs/walk.ts";
+import { relative } from "https://deno.land/std@0.201.0/path/mod.ts";
 import init, { format } from "../pkg/ruff_fmt.js";
-
-import { assertEquals } from "https://deno.land/std@0.197.0/assert/mod.ts";
 
 await init();
 
-// Deno glob files
-const files = [...Deno.readDirSync(new URL("../test_data", import.meta.url))]
-    .filter((f) => f.isFile && f.name.endsWith(".input"))
-    .map((f) => {
-        return {
-            input_name: f.name,
-            expect_name: f.name.replace(".input", ".expect"),
-        };
-    });
+const update = Deno.args.includes("--update");
 
-for (const { input_name, expect_name } of files) {
-    Deno.test(input_name, () => {
-        const input = Deno.readTextFileSync(
-            new URL(`../test_data/${input_name}`, import.meta.url)
-        );
-        const expected = Deno.readTextFileSync(
-            new URL(`../test_data/${expect_name}`, import.meta.url)
-        );
+const test_root = new URL("../test_data", import.meta.url);
 
-        const actual = format(input);
+for await (const entry of walk(test_root, {
+    includeDirs: false,
+    exts: ["input"],
+})) {
+    const expect_path = entry.path.replace(/input$/, "expect");
+    const input = Deno.readTextFileSync(entry.path);
 
-        assertEquals(actual, expected);
-    });
+    const actual = format(input);
+
+    if (update) {
+        Deno.writeTextFileSync(expect_path, actual);
+    } else {
+        const expected = Deno.readTextFileSync(expect_path);
+
+        const test_name = relative(test_root.pathname, entry.path);
+
+        Deno.test(test_name, () => {
+            assertEquals(actual, expected);
+        });
+    }
 }

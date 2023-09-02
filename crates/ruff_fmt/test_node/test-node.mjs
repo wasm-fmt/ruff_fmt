@@ -1,32 +1,41 @@
-import init, { format } from "../pkg/ruff_fmt.js";
-import { test } from "node:test";
 import assert from "node:assert/strict";
-import fs from "node:fs";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { test } from "node:test";
+import { fileURLToPath } from "node:url";
+import init, { format } from "../pkg/ruff_fmt.js";
 
 await init();
 
-const files = fs
-    .readdirSync(new URL("../test_data", import.meta.url), "utf-8")
-    .filter((f) => f.endsWith(".input"))
-    .map((f) => {
-        return {
-            input_name: f,
-            expect_name: f.replace(".input", ".expect"),
-        };
-    });
+const test_root = fileURLToPath(new URL("../test_data", import.meta.url));
 
-for (const { input_name, expect_name } of files) {
-    test(input_name, () => {
-        const input = fs.readFileSync(
-            new URL(`../test_data/${input_name}`, import.meta.url),
-            "utf-8"
-        );
-        const expected = fs.readFileSync(
-            new URL(`../test_data/${expect_name}`, import.meta.url),
-            "utf-8"
-        );
-        const actual = format(input);
+for await (const dirent of await fs.opendir(test_root, { recursive: true })) {
+    if (!dirent.isFile()) {
+        continue;
+    }
 
+    const input_path = dirent.path;
+    const ext = path.extname(input_path);
+
+    switch (ext) {
+        case ".input":
+            break;
+
+        default:
+            continue;
+    }
+
+    const expect_path = input_path.replace(ext, ".expect");
+
+    const [input, expected] = await Promise.all([
+        fs.readFile(input_path, "utf-8"),
+        fs.readFile(expect_path, "utf-8"),
+    ]);
+    const actual = format(input);
+
+    const test_name = path.relative(test_root, input_path);
+
+    test(test_name, () => {
         assert.equal(actual, expected);
     });
 }
