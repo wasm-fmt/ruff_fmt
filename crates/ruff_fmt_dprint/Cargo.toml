@@ -1,13 +1,18 @@
 [package]
+description = "Python formatting plugin for dprint via ruff."
+name        = "ruff_fmt_dprint"
+
 authors.workspace    = true
-description          = "Python formatting plugin for dprint via ruff."
 edition.workspace    = true
 homepage.workspace   = true
 keywords.workspace   = true
 license.workspace    = true
-name                 = "ruff_fmt_dprint"
 repository.workspace = true
 version.workspace    = true
+
+    [package.metadata.wasm-pack.profile.release]
+    wasm-opt = ["-Os"]
+
 
 [lib]
 crate-type = ["lib", "cdylib"]

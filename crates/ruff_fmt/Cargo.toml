@@ -1,14 +1,18 @@
 [package]
+name = "ruff_fmt"
+
 authors.workspace     = true
 description.workspace = true
 edition.workspace     = true
 homepage.workspace    = true
 keywords.workspace    = true
 license.workspace     = true
-name                  = "ruff_fmt"
-publish               = true
 repository.workspace  = true
 version.workspace     = true
+
+    [package.metadata.wasm-pack.profile.release]
+    wasm-opt = ["-Os"]
+
 
 [dependencies]
 ruff_fmt_config       = { workspace = true }

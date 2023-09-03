@@ -1,5 +1,6 @@
 [workspace]
-members = ["crates/*"]
+members  = ["crates/*"]
+resolver = "2"
 
 
     [workspace.package]
@@ -22,6 +23,10 @@ members = ["crates/*"]
     serde_json            = { version = "1.0" }
     wasm-bindgen          = "0.2.87"
 
+
 [profile.release]
 lto       = true
 opt-level = "s"
+
+[patch."https://github.com/youknowone/unicode_names2"]
+unicode_names2 = { path = "crates/unicode_names2_patch" }
