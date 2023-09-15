@@ -12,6 +12,7 @@ use ruff_python_formatter::{MagicTrailingComma, PyFormatOptions, QuoteStyle};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Deserialize, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum IndentStyle {
     Tab,
     Space,
