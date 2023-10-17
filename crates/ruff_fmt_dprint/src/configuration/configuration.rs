@@ -1,6 +1,6 @@
 use dprint_core::configuration::GlobalConfiguration;
 pub use ruff_fmt_config::Config as Configuration;
-use ruff_fmt_config::{IndentStyle, LineWidth, TabWidth};
+use ruff_fmt_config::{IndentStyle, IndentWidth, LineWidth};
 use ruff_formatter::FormatOptions;
 use ruff_python_formatter::PyFormatOptions;
 
@@ -17,11 +17,11 @@ pub(crate) fn indent_style_from_global_config(
 pub(crate) fn indent_width_from_global_config(
     global_config: &GlobalConfiguration,
     default_ruff_config: &PyFormatOptions,
-) -> TabWidth {
+) -> IndentWidth {
     global_config
         .indent_width
         .and_then(|indent_width| indent_width.try_into().ok())
-        .unwrap_or_else(|| (default_ruff_config.indent_width() as u8).try_into().unwrap())
+        .unwrap_or_else(|| default_ruff_config.indent_width().into())
 }
 
 pub(crate) fn line_width_from_global_config(

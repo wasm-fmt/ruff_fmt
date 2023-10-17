@@ -2,7 +2,7 @@
 mod test;
 
 use ruff_fmt_config::Config as InnerConfig;
-use ruff_python_formatter::format_module;
+use ruff_python_formatter::format_module_source;
 
 #[wasm_bindgen]
 pub fn format(input: &str, config: Option<Config>) -> Result<String, String> {
@@ -12,7 +12,7 @@ pub fn format(input: &str, config: Option<Config>) -> Result<String, String> {
         Default::default()
     };
 
-    format_module(input, config.into())
+    format_module_source(input, config.into())
         .map(|result| result.into_code())
         .map_err(|err| err.to_string())
 }

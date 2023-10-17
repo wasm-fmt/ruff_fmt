@@ -4,8 +4,7 @@ use std::{
 };
 
 use ruff_formatter::{
-    FormatOptions, IndentStyle as RuffIndentStyle, LineWidth as RuffLineWidth,
-    TabWidth as RuffTabWidth,
+    IndentStyle as RuffIndentStyle, IndentWidth as RuffIndentWidth, LineWidth as RuffLineWidth,
 };
 use ruff_python_formatter::{MagicTrailingComma, PyFormatOptions, QuoteStyle};
 
@@ -34,15 +33,24 @@ impl From<RuffIndentStyle> for IndentStyle {
     fn from(value: RuffIndentStyle) -> Self {
         match value {
             RuffIndentStyle::Tab => Self::Tab,
-            RuffIndentStyle::Space(..) => Self::Space,
+            RuffIndentStyle::Space => Self::Space,
+        }
+    }
+}
+
+impl From<IndentStyle> for RuffIndentStyle {
+    fn from(value: IndentStyle) -> Self {
+        match value {
+            IndentStyle::Tab => Self::Tab,
+            IndentStyle::Space => Self::Space,
         }
     }
 }
 
 #[derive(Clone, Deserialize, Serialize)]
-pub struct TabWidth(NonZeroU8);
+pub struct IndentWidth(NonZeroU8);
 
-impl FromStr for TabWidth {
+impl FromStr for IndentWidth {
     type Err = ParseIntError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -50,13 +58,19 @@ impl FromStr for TabWidth {
     }
 }
 
-impl From<TabWidth> for RuffTabWidth {
-    fn from(value: TabWidth) -> Self {
+impl From<IndentWidth> for RuffIndentWidth {
+    fn from(value: IndentWidth) -> Self {
         Self::try_from(value.0.get()).unwrap()
     }
 }
 
-impl TryFrom<u8> for TabWidth {
+impl From<RuffIndentWidth> for IndentWidth {
+    fn from(value: RuffIndentWidth) -> Self {
+        Self::try_from(value.value() as u8).unwrap()
+    }
+}
+
+impl TryFrom<u8> for IndentWidth {
     type Error = TryFromIntError;
 
     fn try_from(value: u8) -> Result<Self, Self::Error> {
@@ -99,7 +113,7 @@ impl TryFrom<u16> for LineWidth {
 #[serde(rename_all = "snake_case")]
 pub struct Config {
     pub indent_style: Option<IndentStyle>,
-    pub indent_width: Option<TabWidth>,
+    pub indent_width: Option<IndentWidth>,
     pub line_width: Option<LineWidth>,
     pub quote_style: Option<QuoteStyle>,
     pub magic_trailing_comma: Option<MagicTrailingComma>,
@@ -111,7 +125,7 @@ impl Config {
         self
     }
 
-    pub fn with_indent_width(mut self, indent_width: TabWidth) -> Self {
+    pub fn with_indent_width(mut self, indent_width: IndentWidth) -> Self {
         self.indent_width = Some(indent_width);
         self
     }
@@ -137,25 +151,11 @@ impl From<Config> for PyFormatOptions {
         let mut config = Self::default();
 
         if let Some(indent_style) = value.indent_style {
-            match indent_style {
-                IndentStyle::Tab => {
-                    config = config.with_indent_style(RuffIndentStyle::Tab);
-                }
-                IndentStyle::Space => {
-                    config = config.with_indent_style(RuffIndentStyle::Space(4));
-                }
-            }
+            config = config.with_indent_style(indent_style.into());
         }
 
         if let Some(indent_width) = value.indent_width {
-            match config.indent_style() {
-                RuffIndentStyle::Tab => {
-                    config = config.with_tab_width(indent_width.into());
-                }
-                RuffIndentStyle::Space(..) => {
-                    config = config.with_indent_style(RuffIndentStyle::Space(indent_width.0.get()));
-                }
-            }
+            config = config.with_indent_width(indent_width.into());
         }
 
         if let Some(line_width) = value.line_width {
