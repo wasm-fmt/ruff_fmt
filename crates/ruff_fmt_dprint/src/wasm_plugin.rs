@@ -65,12 +65,12 @@ impl SyncPluginHandler<Configuration> for RuffFmtWasmPlugin {
 
     fn format(
         &mut self,
-        _file_path: &std::path::Path,
+        file_path: &std::path::Path,
         file_text: &str,
         config: &Configuration,
         mut _format_with_host: impl FnMut(&Path, String, &ConfigKeyMap) -> FormatResult,
     ) -> FormatResult {
-        format_text(file_text, config)
+        format_text(file_text, file_path, config)
     }
 }
 

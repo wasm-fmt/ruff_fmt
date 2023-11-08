@@ -1,5 +1,6 @@
 use std::{
     num::{NonZeroU16, NonZeroU8, ParseIntError, TryFromIntError},
+    path::Path,
     str::FromStr,
 };
 
@@ -117,6 +118,9 @@ pub struct Config {
     pub line_width: Option<LineWidth>,
     pub quote_style: Option<QuoteStyle>,
     pub magic_trailing_comma: Option<MagicTrailingComma>,
+
+    #[serde(skip)]
+    path: String,
 }
 
 impl Config {
@@ -144,11 +148,16 @@ impl Config {
         self.magic_trailing_comma = Some(magic_trailing_comma);
         self
     }
+
+    pub fn with_path(mut self, path: String) -> Self {
+        self.path = path;
+        self
+    }
 }
 
 impl From<Config> for PyFormatOptions {
     fn from(value: Config) -> Self {
-        let mut config = Self::default();
+        let mut config = Self::from_extension(Path::new(&value.path));
 
         if let Some(indent_style) = value.indent_style {
             config = config.with_indent_style(indent_style.into());
