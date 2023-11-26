@@ -17,9 +17,8 @@ for await (const entry of walk(test_root, {
     const expect_path = entry.path.replace(/input$/, "expect");
     const input = Deno.readTextFileSync(entry.path);
 
-    const actual = format(input);
-
     if (update) {
+        const actual = format(input);
         Deno.writeTextFileSync(expect_path, actual);
     } else {
         const expected = Deno.readTextFileSync(expect_path);
@@ -27,6 +26,7 @@ for await (const entry of walk(test_root, {
         const test_name = relative(test_root.pathname, entry.path);
 
         Deno.test(test_name, () => {
+            const actual = format(input);
             assertEquals(actual, expected);
         });
     }
