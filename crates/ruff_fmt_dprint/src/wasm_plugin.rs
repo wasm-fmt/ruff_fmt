@@ -21,12 +21,6 @@ use super::configuration::Configuration;
 #[serde(rename_all = "camelCase")]
 struct RuffFmtWasmPlugin;
 
-impl RuffFmtWasmPlugin {
-    pub const fn new() -> Self {
-        RuffFmtWasmPlugin {}
-    }
-}
-
 impl SyncPluginHandler<Configuration> for RuffFmtWasmPlugin {
     fn resolve_config(
         &mut self,
@@ -74,4 +68,4 @@ impl SyncPluginHandler<Configuration> for RuffFmtWasmPlugin {
     }
 }
 
-generate_plugin_code!(RuffFmtWasmPlugin, RuffFmtWasmPlugin::new());
+generate_plugin_code!(RuffFmtWasmPlugin, RuffFmtWasmPlugin {});
