@@ -1,5 +1,3 @@
-use std::path::Path;
-
 use dprint_core::configuration::ConfigKeyMap;
 use dprint_core::configuration::GlobalConfiguration;
 use dprint_core::configuration::ResolveConfigurationResult;
@@ -60,11 +58,11 @@ impl SyncPluginHandler<Configuration> for RuffFmtWasmPlugin {
     fn format(
         &mut self,
         file_path: &std::path::Path,
-        file_text: &str,
+        file_bytes: Vec<u8>,
         config: &Configuration,
-        mut _format_with_host: impl FnMut(&Path, String, &ConfigKeyMap) -> FormatResult,
+        _format_with_host: impl FnMut(&std::path::Path, Vec<u8>, &ConfigKeyMap) -> FormatResult,
     ) -> FormatResult {
-        format_text(file_text, file_path, config)
+        format_text(&String::from_utf8_lossy(&file_bytes), file_path, config)
     }
 }
 

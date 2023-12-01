@@ -9,7 +9,7 @@ pub fn format_text(text: &str, file_path: &Path, config: &Configuration) -> Form
     let config = config.clone().with_path(file_path.to_string_lossy().to_string());
     format_module_source(text, config.into())
         .map_err(|err| err.into())
-        .map(|result| (result.as_code() != text).then_some(result.into_code()))
+        .map(|result| (result.as_code() != text).then_some(result.into_code().into_bytes()))
 }
 
 #[cfg(test)]
