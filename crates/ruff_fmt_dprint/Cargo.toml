@@ -19,7 +19,7 @@ crate-type = ["lib", "cdylib"]
 
 
 [dependencies]
-anyhow                = "1.0.77"
+anyhow                = "1.0.79"
 dprint-core           = { version = "0.65.0", features = ["wasm"] }
 ruff_fmt_config       = { workspace = true }
 ruff_formatter        = { workspace = true }
