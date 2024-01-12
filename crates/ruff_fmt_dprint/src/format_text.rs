@@ -26,6 +26,6 @@ mod tests {
             .err()
             .unwrap()
             .to_string();
-        assert!(message.contains("ParseError"));
+        assert!(message.contains("invalid syntax"));
     }
 }
