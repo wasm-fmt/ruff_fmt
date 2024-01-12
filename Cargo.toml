@@ -21,7 +21,7 @@ resolver = "2"
     ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.1.12" }
     serde                 = { version = "1.0" }
     serde_json            = { version = "1.0" }
-    wasm-bindgen          = "0.2.89"
+    wasm-bindgen          = "0.2.90"
 
 
 [profile.release]
