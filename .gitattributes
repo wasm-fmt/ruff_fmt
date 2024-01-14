@@ -4,6 +4,9 @@
 *.ts linguist-detectable=false
 *.mjs linguist-detectable=false
 *.sh linguist-detectable=false
+*.py linguist-detectable=false
+*.pyi linguist-detectable=false
+*.expect linguist-detectable=false
 
 test_*/* linguist-detectable=false
 test_*/**/* linguist-detectable=false
