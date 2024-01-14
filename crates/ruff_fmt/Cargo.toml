@@ -24,7 +24,7 @@ serde_json            = { workspace = true, features = ["preserve_order"] }
 wasm-bindgen          = { workspace = true }
 
 [dev-dependencies]
-testing_macros = "0.2.11"
+testing_macros = "0.2.12"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
