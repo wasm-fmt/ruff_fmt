@@ -1,11 +1,8 @@
 """Compound statements with no body should be written on one line."""
 
-if True:
-    ...
-elif True:
-    ...
-else:
-    ...
+if True: ...
+elif True: ...
+else: ...
 
 if True:
     # comment
@@ -17,17 +14,12 @@ else:
     # comment
     ...
 
-if True:
-    ...  # comment
-elif True:
-    ...  # comment
-else:
-    ...  # comment
+if True: ...  # comment
+elif True: ...  # comment
+else: ...  # comment
 
-for i in []:
-    ...
-else:
-    ...
+for i in []: ...
+else: ...
 
 for i in []:
     # comment
@@ -36,15 +28,11 @@ else:
     # comment
     ...
 
-for i in []:
-    ...  # comment
-else:
-    ...  # comment
+for i in []: ...  # comment
+else: ...  # comment
 
-while True:
-    ...
-else:
-    ...
+while True: ...
+else: ...
 
 while True:
     # comment
@@ -53,40 +41,31 @@ else:
     # comment
     ...
 
-while True:
-    ...  # comment
-else:
-    ...  # comment
+while True: ...  # comment
+else: ...  # comment
 
-with True:
-    ...
+with True: ...
 
 with True:
     # comment
     ...
 
-with True:
-    ...  # comment
+with True: ...  # comment
 
 with True:
     ...
     # comment
 
 match x:
-    case 1:
-        ...
+    case 1: ...
     case 2:
         # comment
         ...
-    case 3:
-        ...  # comment
+    case 3: ...  # comment
 
-try:
-    ...
-except:
-    ...
-finally:
-    ...
+try: ...
+except: ...
+finally: ...
 
 try:
     # comment
@@ -98,9 +77,6 @@ finally:
     # comment
     ...
 
-try:
-    ...  # comment
-except:
-    ...  # comment
-finally:
-    ...  # comment
+try: ...  # comment
+except: ...  # comment
+finally: ...  # comment

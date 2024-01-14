@@ -6,94 +6,71 @@ x = 1
 
 # comment
 
-
 def f():
     pass
-
 
 if True:
     x = 1
 
 # comment
 
-
 def f():
     pass
-
-
-x = 1
-
-
-# comment
-
-
-def f():
-    pass
-
-
-x = 1
-
-
-# comment
-def f():
-    pass
-
 
 x = 1
 
 # comment
 
+def f():
+    pass
+
+x = 1
 
 # comment
 def f():
     pass
 
+x = 1
+
+# comment
+
+# comment
+def f():
+    pass
 
 x = 1
 
 # comment
 # comment
 
-
 def f():
     pass
-
 
 x = 1
 
-
 # comment
 # comment
 def f():
     pass
-
 
 x = 1
 
-
 # comment
 
-
 # comment
-
 
 def f():
     pass
 
-
 # comment
-
 
 def f():
     pass
 
-
 # comment
-
 
 def f():
     pass
-
 
 # comment
 
@@ -101,6 +78,11 @@ def f():
 # Blank lines around imports.
 ###
 
+def f():
+    import x
+
+    # comment
+    import y
 
 def f():
     import x
@@ -108,20 +90,11 @@ def f():
     # comment
     import y
 
-
-def f():
-    import x
-
-    # comment
-    import y
-
-
 def f():
     import x
     # comment
 
     import y
-
 
 def f():
     import x
@@ -129,13 +102,11 @@ def f():
 
     import y
 
-
 def f():
     import x
 
     # comment
     import y
-
 
 def f():
     import x
@@ -143,7 +114,6 @@ def f():
     # comment
 
     import y
-
 
 def f():
     import x  # comment
@@ -151,19 +121,15 @@ def f():
 
     import y
 
-
 def f():
     pass  # comment
-
 
 # comment
 
 x = 1
 
-
 def f():
     pass
-
 
 # comment
 

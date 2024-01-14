@@ -1,11 +1,7 @@
 class SupportsAnext:
-    def __anext__(self):
-        ...
-
+    def __anext__(self): ...
 
 # Comparison protocols
 
-
 class SupportsDunderLT:
-    def __init__(self):
-        ...
+    def __init__(self): ...

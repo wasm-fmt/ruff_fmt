@@ -41,7 +41,7 @@ for await (const input_path of walk(test_root)) {
     ]);
 
     test(test_name, () => {
-        const actual = format(input);
+        const actual = format(input, input_path);
         expect(actual).toBe(expected);
     });
 }

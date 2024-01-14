@@ -1,14 +1,17 @@
 #[cfg(test)]
 mod tests {
-    use std::{fs::File, io::Read, path::PathBuf};
+    use std::{fs::File, io::Read, path::PathBuf, str::FromStr};
     use testing_macros::fixture;
 
     use crate::format;
 
-    #[fixture("test_data/*.input")]
+    #[fixture("test_data/**/*.py")]
+    #[fixture("test_data/**/*.pyi")]
     fn it_works(input: PathBuf) {
         // calc the expected file path
-        let extect_path = input.with_extension("expect");
+        let input = input.clone();
+        let extect_path = input.to_string_lossy() + ".expect";
+        let extect_path = PathBuf::from_str(&extect_path).unwrap();
 
         let mut actual = String::new();
         File::open(&input).and_then(|mut file| file.read_to_string(&mut actual)).unwrap();
