@@ -26,7 +26,8 @@ for await (const input_path of walk(test_root)) {
     const ext = path.extname(input_path);
 
     switch (ext) {
-        case ".input":
+        case ".py":
+        case ".pyi":
             break;
 
         default:
@@ -36,12 +37,11 @@ for await (const input_path of walk(test_root)) {
     const test_name = path.relative(test_root, input_path);
     const [input, expected] = await Promise.all([
         Bun.file(input_path).text(),
-        Bun.file(input_path.replace(ext, ".expect")).text(),
+        Bun.file(input_path + ".expect").text(),
     ]);
 
-    const actual = format(input);
-
     test(test_name, () => {
+        const actual = format(input);
         expect(actual).toBe(expected);
     });
 }

@@ -12,9 +12,9 @@ const test_root = new URL("../test_data", import.meta.url);
 
 for await (const entry of walk(test_root, {
     includeDirs: false,
-    exts: ["input"],
+    exts: ["py", "pyi"],
 })) {
-    const expect_path = entry.path.replace(/input$/, "expect");
+    const expect_path = entry.path + ".expect";
     const input = Deno.readTextFileSync(entry.path);
 
     if (update) {

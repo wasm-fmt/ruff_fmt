@@ -18,14 +18,15 @@ for await (const dirent of await fs.opendir(test_root, { recursive: true })) {
     const ext = path.extname(input_path);
 
     switch (ext) {
-        case ".input":
+        case ".py":
+        case ".pyi":
             break;
 
         default:
             continue;
     }
 
-    const expect_path = input_path.replace(ext, ".expect");
+    const expect_path = input_path + ".expect";
 
     const [input, expected] = await Promise.all([
         fs.readFile(input_path, "utf-8"),
