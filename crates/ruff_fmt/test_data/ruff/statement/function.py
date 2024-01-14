@@ -1,0 +1,422 @@
+# Dangling comments
+def test(
+    # comment
+
+    # another
+
+): ...
+
+
+# Argument empty line spacing
+def test(
+    # comment
+    a,
+
+    # another
+
+    b,
+): ...
+
+
+### Different function argument wrappings
+
+def single_line(aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, bbbbbbbbbbbbbbb, ccccccccccccccccc):
+    pass
+
+def arguments_on_their_own_line(aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, bbbbbbbbbbbbbbb, ccccccccccc, ddddddddddddd, eeeeeee):
+    pass
+
+def argument_per_line(aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, bbbbbbbbbbbbbbb, ccccccccccccccccc, ddddddddddddd, eeeeeeeeeeeeeeee, ffffffffffff):
+    pass
+
+def last_pos_only_trailing_comma(a, b, /,):
+    pass
+
+def last_pos_no_trailing_comma(a, b, /):
+    pass
+
+
+def varg_with_leading_comments(
+    a, b,
+    # comment
+    *args
+): ...
+
+def kwarg_with_leading_comments(
+    a, b,
+    # comment
+    **kwargs
+): ...
+
+def argument_with_long_default(
+    a,
+    b = ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc + [
+        dddddddddddddddddddd, eeeeeeeeeeeeeeeeeeee, ffffffffffffffffffffffff
+    ],
+    h = []
+):  ...
+
+
+def argument_with_long_type_annotation(
+    a,
+    b: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy | zzzzzzzzzzzzzzzzzzz = [0, 1, 2, 3],
+    h = []
+):  ...
+
+
+def test(): ...
+
+# Type parameter empty line spacing
+def test[
+    # comment
+    A,
+
+    # another
+
+    B,
+](): ...
+
+
+# Type parameter comments
+def type_param_comments[ # trailing bracket comment
+    # leading comment
+    A,
+
+    # in between comment
+
+    B,
+    # another leading comment
+    C,
+    D, # trailing comment
+    # leading bracket comment
+]():
+    # body comment
+    pass
+
+
+# Note empty type parameters is not valid syntax, e.g.
+# def test[](): ...
+
+
+# Different type parameter wrappings
+
+def single_line[Aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, Bbbbbbbbbbbbbbb, Ccccccccccccccccc]():
+    pass
+
+def params_on_their_own_line[Aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, Bbbbbbbbbbbbbbb, Ccccccccccc, Ddddddddddddd, Eeeeeeee]():
+    pass
+
+def param_per_line[Aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, Bbbbbbbbbbbbbbb, Ccccccccccccccccc, Ddddddddddddd, Eeeeeeeeeeeeeeeee, ffffffffffff]():
+    pass
+
+def single_line_trailing_comma[A, B, C,]():
+    pass
+
+# Comment
+def with_leading_comment(): ...
+
+# Comment that could be mistaken for a trailing comment of the function declaration when
+# looking from the position of the if
+# Regression test for https://github.com/python/cpython/blob/ad56340b665c5d8ac1f318964f71697bba41acb7/Lib/logging/__init__.py#L253-L260
+if True:
+    def f1():
+        pass  # a
+else:
+    pass
+
+# Here it's actually a trailing comment
+if True:
+    def f2():
+        pass
+        # a
+else:
+    pass
+
+# Make sure the star is printed
+# Regression test for https://github.com/python/cpython/blob/7199584ac8632eab57612f595a7162ab8d2ebbc0/Lib/warnings.py#L513
+def f(arg1=1, *, kwonlyarg1, kwonlyarg2=2):
+    pass
+
+
+# Regression test for https://github.com/astral-sh/ruff/issues/5176#issuecomment-1598171989
+def foo(
+    b=3 + 2  # comment
+):
+    ...
+
+
+# Comments on the slash or the star, both of which don't have a node
+def f11(
+    a,
+    # positional only comment, leading
+    /, # positional only comment, trailing
+    b,
+):
+    pass
+
+def f12(
+    a=1,
+    # positional only comment, leading
+    /, # positional only comment, trailing
+    b=2,
+):
+    pass
+
+def f13(
+    a,
+    # positional only comment, leading
+    /, # positional only comment, trailing
+):
+    pass
+
+def f21(
+    a=1,
+    # keyword only comment, leading
+    *, # keyword only comment, trailing
+    b=2,
+):
+    pass
+
+def f22(
+    a,
+    # keyword only comment, leading
+    *, # keyword only comment, trailing
+    b,
+):
+    pass
+
+def f23(
+    a,
+    # keyword only comment, leading
+    *args, # keyword only comment, trailing
+    b,
+):
+    pass
+
+def f24(
+    # keyword only comment, leading
+    *, # keyword only comment, trailing
+    a
+):
+    pass
+
+
+def f31(
+    a=1,
+    # positional only comment, leading
+    /, # positional only comment, trailing
+    b=2,
+    # keyword only comment, leading
+    *, # keyword only comment, trailing
+    c=3,
+):
+    pass
+
+def f32(
+    a,
+    # positional only comment, leading
+    /, # positional only comment, trailing
+    b,
+    # keyword only comment, leading
+    *, # keyword only comment, trailing
+    c,
+):
+    pass
+
+def f33(
+    a,
+    # positional only comment, leading
+    /,  # positional only comment, trailing
+    # keyword only comment, leading
+    *args, # keyword only comment, trailing
+    c,
+):
+    pass
+
+
+def f34(
+    a,
+    # positional only comment, leading
+    /,  # positional only comment, trailing
+    # keyword only comment, leading
+    *, # keyword only comment, trailing
+    c,
+):
+    pass
+
+def f35(
+    # keyword only comment, leading
+    *, # keyword only comment, trailing
+    c,
+):
+    pass
+
+# Multiple trailing comments
+def f41(
+    a,
+    / # 1
+    , # 2
+    # 3
+    * # 4
+    , # 5
+    c,
+):
+    pass
+
+# Multiple trailing comments strangely places. The goal here is only stable formatting,
+# the comments are placed to strangely to keep their relative position intact
+def f42(
+    a,
+    / # 1
+    # 2
+    , # 3
+    # 4
+    * # 5
+    # 6
+    , # 7
+    c,
+):
+    pass
+
+
+# Check trailing commas are permitted in funcdef argument list.
+def f(a, ): pass
+def f(*args, ): pass
+def f(**kwds, ): pass
+def f(a, *args, ): pass
+def f(a, **kwds, ): pass
+def f(*args, b, ): pass
+def f(*, b, ): pass
+def f(*args, **kwds, ): pass
+def f(a, *args, b, ): pass
+def f(a, *, b, ): pass
+def f(a, *args, **kwds, ): pass
+def f(*args, b, **kwds, ): pass
+def f(*, b, **kwds, ): pass
+def f(a, *args, b, **kwds, ): pass
+def f(a, *, b, **kwds, ): pass
+
+# Handle comments on open parenthesis.
+def f(
+    # first
+    # second
+):
+    ...
+
+
+def f(  # first
+    # second
+):  # third
+    ...
+
+
+def f(  # first
+):  # second
+    ...
+
+
+def f(
+    a,
+    /,
+    # first
+    b
+    # second
+):
+    ...
+
+
+def f(  # first
+    *,
+    # second
+    b
+    # third
+):
+    ...
+
+
+def f(  # first
+    # second
+    *,
+    # third
+    b
+    # fourth
+):
+    ...
+
+
+def f(  # first
+    a,
+    # second
+):  # third
+    ...
+
+
+def f(  # first
+    a
+):  # second
+    ...
+
+
+def f(  # first
+    a
+    # second
+):  # third
+    ...
+
+
+def f(  # first
+    a,
+    / # second
+    ,
+    # third
+):
+    ...
+
+# Walrus operator in return type.
+def this_is_unusual() -> (please := no): ...
+
+def this_is_unusual(x) -> (please := no): ...
+
+# Regression test for: https://github.com/astral-sh/ruff/issues/7465
+try:
+    def test():
+        pass
+    #comment
+except ImportError:
+    pass
+
+# https://github.com/astral-sh/ruff/issues/7603
+def default_arg_comments(
+    a: str = #a
+    "a",
+    b: str =
+    #b
+    "b",
+    c: str =( #c
+        "c"
+    ),
+    d: str =(
+        #d
+        "d"
+    )
+):
+    print(a, b, c, d)
+
+def default_arg_comments2(#
+        x: int#=
+        = #
+        #
+        123#
+        #
+):
+    print(x)
+
+def function_with_one_argument_and_a_positional_separator(
+    argument: str, /
+) -> ReallyReallyReallyReallyReallyReallyReallyReallyLongName:
+    pass
+
+def function_with_one_argument_and_a_keyword_separator(
+    *, argument: str
+) -> ReallyReallyReallyReallyReallyReallyReallyReallyLongName:
+    pass
