@@ -17,11 +17,12 @@ pkg_json.publishConfig = {
 pkg_json.exports = {
     ".": {
         types: "./ruff_fmt.d.ts",
+        node: "./ruff_fmt_node.js",
         default: "./ruff_fmt.js",
     },
     "./vite": {
         types: "./ruff_fmt.d.ts",
-        default: "./vite.js",
+        default: "./ruff_fmt_vite.js",
     },
     "./package.json": "./package.json",
     "./*": "./*",
