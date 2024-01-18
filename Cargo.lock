@@ -398,7 +398,7 @@ dependencies = [
 
 [[package]]
 name = "ruff_fmt"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "ruff_fmt_config",
  "ruff_formatter",
@@ -412,7 +412,7 @@ dependencies = [
 
 [[package]]
 name = "ruff_fmt_config"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "ruff_formatter",
  "ruff_python_formatter",
@@ -422,7 +422,7 @@ dependencies = [
 
 [[package]]
 name = "ruff_fmt_dprint"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "anyhow",
  "dprint-core",
