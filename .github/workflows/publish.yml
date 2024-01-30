@@ -93,6 +93,7 @@ jobs:
               uses: softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d
               with:
                   files: |
+                      crates/ruff_fmt/pkg/ruff_fmt_bg.wasm
                       crates/ruff_fmt/pkg/wasm-fmt-ruff_fmt-*.tgz
                       crates/ruff_fmt_dprint/schema.json
                       target/wasm32-unknown-unknown/release/plugin.wasm
