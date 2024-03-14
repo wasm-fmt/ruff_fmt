@@ -1,5 +1,4 @@
 class NormalDocstring:
-
     """This is a docstring."""
 
 

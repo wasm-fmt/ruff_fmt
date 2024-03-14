@@ -66,32 +66,24 @@ call(
     ),
 )
 textwrap.dedent("""A one-line triple-quoted string.""")
-textwrap.dedent(
-    """A two-line triple-quoted string
-since it goes to the next line."""
-)
-textwrap.dedent(
-    """A three-line triple-quoted string
+textwrap.dedent("""A two-line triple-quoted string
+since it goes to the next line.""")
+textwrap.dedent("""A three-line triple-quoted string
 that not only goes to the next line
-but also goes one line beyond."""
-)
-textwrap.dedent(
-    """\
+but also goes one line beyond.""")
+textwrap.dedent("""\
     A triple-quoted string
     actually leveraging the textwrap.dedent functionality
     that ends in a trailing newline,
     representing e.g. file contents.
-"""
-)
+""")
 path.write_text(
-    textwrap.dedent(
-        """\
+    textwrap.dedent("""\
     A triple-quoted string
     actually leveraging the textwrap.dedent functionality
     that ends in a trailing newline,
     representing e.g. file contents.
-"""
-    )
+""")
 )
 path.write_text(
     textwrap.dedent(
@@ -104,12 +96,10 @@ path.write_text(
     )
 )
 # Another use case
-data = yaml.load(
-    """\
+data = yaml.load("""\
 a: 1
 b: 2
-"""
-)
+""")
 data = yaml.load(
     """\
 a: 1
@@ -228,26 +218,22 @@ barks""",
 
 
 def dastardly_default_value(
-    cow: String = json.loads(
-        """this
+    cow: String = json.loads("""this
 is
 quite
 the
 dastadardly
-value!"""
-    ),
+value!"""),
     **kwargs,
 ):
     pass
 
 
-print(
-    f"""
+print(f"""
     This {animal}
     moos and barks
 {animal} say
-"""
-)
+""")
 msg = f"""The arguments {bad_arguments} were passed in.
 Please use `--build-option` instead,
 `--global-option` is reserved to flags like `--verbose` or `--quiet`.

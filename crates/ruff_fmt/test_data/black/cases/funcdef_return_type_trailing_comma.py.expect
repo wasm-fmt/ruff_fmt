@@ -1,11 +1,9 @@
 # normal, short, function definition
-def foo(a, b) -> tuple[int, float]:
-    ...
+def foo(a, b) -> tuple[int, float]: ...
 
 
 # normal, short, function definition w/o return type
-def foo(a, b):
-    ...
+def foo(a, b): ...
 
 
 # no splitting
@@ -17,8 +15,7 @@ def foo(a: A, b: B) -> list[p, q]:
 def foo(
     a,
     b,
-):
-    ...
+): ...
 
 
 # magic trailing comma in nested params in param list
@@ -28,8 +25,7 @@ def foo(
         int,
         float,
     ],
-):
-    ...
+): ...
 
 
 # magic trailing comma in return type, no params
@@ -38,8 +34,7 @@ def a() -> (
         a,
         b,
     ]
-):
-    ...
+): ...
 
 
 # magic trailing comma in return type, params
@@ -66,16 +61,14 @@ def foo(
 # long function definition, param list is longer
 def aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa(
     bbbbbbbbbbbbbbbbbb,
-) -> cccccccccccccccccccccccccccccc:
-    ...
+) -> cccccccccccccccccccccccccccccc: ...
 
 
 # long function definition, return type is longer
 # this should maybe split on rhs?
 def aaaaaaaaaaaaaaaaa(
     bbbbbbbbbbbbbbbbbb,
-) -> list[Ccccccccccccccccccccccccccccccccccccccccccccccccccc, Dddddd]:
-    ...
+) -> list[Ccccccccccccccccccccccccccccccccccccccccccccccccccc, Dddddd]: ...
 
 
 # long return type, no param list
@@ -85,8 +78,7 @@ def foo() -> (
         Loooooooooooooooooooong,
         Looooooooooooong,
     ]
-):
-    ...
+): ...
 
 
 # long function name, no param list, no return value
@@ -97,15 +89,13 @@ def thiiiiiiiiiiiiiiiiiis_iiiiiiiiiiiiiiiiiiiiiiiiiiiiiis_veeeeeeeeeeeeeeeeeeeee
 # long function name, no param list
 def thiiiiiiiiiiiiiiiiiis_iiiiiiiiiiiiiiiiiiiiiiiiiiiiiis_veeeeeeeeeeeeeeeeeeeeeeery_looooooong() -> (
     list[int, float]
-):
-    ...
+): ...
 
 
 # long function name, no return value
 def thiiiiiiiiiiiiiiiiiis_iiiiiiiiiiiiiiiiiiiiiiiiiiiiiis_veeeeeeeeeeeeeeeeeeeeeeery_looooooong(
     a, b
-):
-    ...
+): ...
 
 
 # unskippable type hint (??)
@@ -128,8 +118,7 @@ def foo(
 def foo(
     a,
     b: list[Bad],
-):
-    ...  # type: ignore
+): ...  # type: ignore
 
 
 # don't lose any comments (no magic)
@@ -186,5 +175,4 @@ def SimplePyFn(
 ) -> tuple[
     Buffer[UInt8, 2],
     Buffer[UInt8, 2],
-]:
-    ...
+]: ...

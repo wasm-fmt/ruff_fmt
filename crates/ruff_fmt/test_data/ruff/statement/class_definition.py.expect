@@ -28,8 +28,7 @@ class Test(  # trailing class comment
     pass
 
 
-class Test((Aaaa)):
-    ...
+class Test((Aaaa)): ...
 
 
 class Test(
@@ -94,7 +93,6 @@ class Test:
 
 
 class Test:
-
     """Docstring"""
 
 
@@ -111,14 +109,12 @@ class Test:
 
 
 class Test:
-
     """Docstring"""
 
     x = 1
 
 
 class Test:
-
     """Docstring"""
 
     # comment
@@ -159,20 +155,17 @@ class C(
 
 @dataclass
 # Copied from transformers.models.clip.modeling_clip.CLIPOutput with CLIP->AltCLIP
-class AltCLIPOutput(ModelOutput):
-    ...
+class AltCLIPOutput(ModelOutput): ...
 
 
 @dataclass
-class AltCLIPOutput:  # Copied from transformers.models.clip.modeling_clip.CLIPOutput with CLIP->AltCLIP
-    ...
+class AltCLIPOutput: ...  # Copied from transformers.models.clip.modeling_clip.CLIPOutput with CLIP->AltCLIP
 
 
 @dataclass
 class AltCLIPOutput(
     # Copied from transformers.models.clip.modeling_clip.CLIPOutput with CLIP->AltCLIP
-):
-    ...
+): ...
 
 
 class TestTypeParams[

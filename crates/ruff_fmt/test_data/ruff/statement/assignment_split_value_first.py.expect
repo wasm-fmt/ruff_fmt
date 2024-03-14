@@ -37,9 +37,9 @@ req["ticket"]["steps"]["step"][0]["tasks"]["task"]["fields"]["field"][
 ] += dst
 
 # Always parenthesize the value if it avoids splitting the target, regardless of the value's width.
-_a: a[
-    aaaa
-] = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbvvvvvvvvvvvvvvvvv
+_a: a[aaaa] = (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbvvvvvvvvvvvvvvvvv
+)
 
 #####
 # Avoid parenthesizing the value if the expression right before the `=` splits to avoid an unnecessary pair of parentheses
@@ -82,9 +82,9 @@ _a: a[
 
 # Black always parenthesizes the right if using multiple targets regardless if the parenthesized value exceeds the
 # the configured line width or not
-aaaa = (
-    bbbbbbbbbbbbbbbb
-) = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbvvvvvvvvvvvvvvvvvee
+aaaa = bbbbbbbbbbbbbbbb = (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbvvvvvvvvvvvvvvvvvee
+)
 
 # Black does parenthesize the target if the target itself exceeds the line width and only parenthesizes
 # the values if it makes it fit.
@@ -95,11 +95,7 @@ aaaa = (
 
 # Does also apply for other multi target assignments, as soon as a single target exceeds the configured
 # width
-aaaaaa = a["aaa"] = bbbbb[aa, bbb, cccc] = (
-    dddddddddd
-) = (
-    eeeeee
-) = (
+aaaaaa = a["aaa"] = bbbbb[aa, bbb, cccc] = dddddddddd = eeeeee = (
     fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ) = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
@@ -165,11 +161,11 @@ a = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[
     yyyyyyyyyy[aaaa]
 ] = ccccccccccccccccccccccccccccccccccc["aaaaaaa"]
 
-a = (
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[
-        xxxxx
-    ].bbvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-) = ccccccccccccccccccccccccccccccccccc["aaaaaaa"]
+a = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[
+    xxxxx
+].bbvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb = ccccccccccccccccccccccccccccccccccc[
+    "aaaaaaa"
+]
 
 label_thresholds[label_id] = label_quantiles[label_id][
     min(int(tolerance * num_thresholds), num_thresholds - 1)
@@ -177,9 +173,9 @@ label_thresholds[label_id] = label_quantiles[label_id][
 
 #######
 # Test comment inlining
-value.__dict__[
-    key
-] = "test"  # set some Thrift field to non-None in the struct aa bb cc dd ee
+value.__dict__[key] = (
+    "test"  # set some Thrift field to non-None in the struct aa bb cc dd ee
+)
 value.__dict__.keye = (
     "test"  # set some Thrift field to non-None in the struct aa bb cc dd ee
 )
@@ -195,9 +191,9 @@ a[
 ] = cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc  # comment
 
 # Parenthesize the value, but don't duplicate the comment.
-a[
-    aaaaaaa, b
-] = cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc  # comment
+a[aaaaaaa, b] = (
+    cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc  # comment
+)
 
 # Format both as flat, but don't loos the comment.
 a[aaaaaaa, b] = bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb  # comment
@@ -224,11 +220,9 @@ a[
 
 ########
 # Type Alias Statement
-type A[
-    str,
-    int,
-    number,
-] = VeryLongTypeNameThatShouldBreakFirstToTheRightBeforeSplitngtin
+type A[str, int, number] = (
+    VeryLongTypeNameThatShouldBreakFirstToTheRightBeforeSplitngtin
+)
 
 type A[
     VeryLongTypeNameThatShouldBreakFirstToTheRightBeforeSplitngtinthatExceedsTheWidth

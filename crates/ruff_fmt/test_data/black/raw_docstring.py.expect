@@ -1,6 +1,5 @@
 # flags: --preview --skip-string-normalization
 class C:
-
     r"""Raw"""
 
 
@@ -9,7 +8,6 @@ def f():
 
 
 class SingleQuotes:
-
     r"""Raw"""
 
 

@@ -5,6 +5,7 @@ class Outer:
     outer_attr_after_inner_stub: int
     class Inner:
         inner_attr: int
+
     outer_attr: int
 
 if sys.version_info > (3, 7):
@@ -21,9 +22,11 @@ class TopLevel:
     class Nested1:
         foo: int
         def bar(self): ...
+
     field = 1
 
     class Nested2:
         def bar(self): ...
         foo: int
+
     field = 1
