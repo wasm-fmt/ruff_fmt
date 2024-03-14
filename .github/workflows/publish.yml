@@ -11,11 +11,9 @@ env:
     RUST_LOG: "off"
 
 jobs:
-    publish-npm:
-        if: startsWith(github.ref, 'refs/tags/v')
+    wasm-build:
+        name: Wasm build
         runs-on: ubuntu-latest
-        permissions:
-            id-token: write
         steps:
             - uses: actions/checkout@v4
 
@@ -25,60 +23,98 @@ jobs:
             - name: Build wasm
               run: ./crates/ruff_fmt/scripts/build.sh
 
+            - name: Package
+              run: npm pack
+              working-directory: crates/ruff_fmt/pkg
+
+            - name: Upload
+              uses: actions/upload-artifact@v4
+              with:
+                  name: build
+                  path: crates/ruff_fmt/pkg
+
+    publish-npm:
+        if: startsWith(github.ref, 'refs/tags/v')
+        runs-on: ubuntu-latest
+        needs: wasm-build
+        permissions:
+            id-token: write
+        steps:
+            - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
                   node-version-file: ".node-version"
                   registry-url: "https://registry.npmjs.org"
 
-            - run: |
-                  cd crates/ruff_fmt/pkg
-                  npm publish --provenance
+            - uses: actions/download-artifact@v4
+              with:
+                  name: build
+                  path: crates/ruff_fmt/pkg
+
+            - run: npm publish --provenance
+              working-directory: crates/ruff_fmt/pkg
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     publish-github:
         if: startsWith(github.ref, 'refs/tags/v')
         runs-on: ubuntu-latest
+        needs: wasm-build
         permissions:
             packages: write
         steps:
             - uses: actions/checkout@v4
-
-            - name: Install wasm-pack
-              run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-
-            - name: Build wasm
-              run: ./crates/ruff_fmt/scripts/build.sh
-
             - uses: actions/setup-node@v4
               with:
                   node-version-file: ".node-version"
                   registry-url: "https://npm.pkg.github.com"
 
-            - run: |
-                  cd crates/ruff_fmt/pkg
-                  npm publish
+            - uses: actions/download-artifact@v4
+              with:
+                  name: build
+                  path: crates/ruff_fmt/pkg
+
+            - run: npm publish
+              working-directory: crates/ruff_fmt/pkg
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    publish-jsr:
+        if: startsWith(github.ref, 'refs/tags/v')
+        runs-on: ubuntu-latest
+        needs: wasm-build
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: ".node-version"
+
+            - uses: actions/download-artifact@v4
+              with:
+                  name: build
+                  path: crates/ruff_fmt/pkg
+
+            - run: npx jsr publish
+              working-directory: crates/ruff_fmt/pkg
 
     publish-github-release:
         if: startsWith(github.ref, 'refs/tags/v')
         runs-on: ubuntu-latest
+        needs: wasm-build
         permissions:
             contents: write
         steps:
             - uses: actions/checkout@v4
+            - uses: actions/download-artifact@v4
+              with:
+                  name: build
+                  path: crates/ruff_fmt/pkg
 
-            - name: Install wasm-pack
-              run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-
-            - name: Build wasm
-              run: |
-                  # build for JS API
-                  ./crates/ruff_fmt/scripts/build.sh
-                  (cd crates/ruff_fmt/pkg && npm pack)
-                  # build for dprint plugin
-                  cargo build --release --target=wasm32-unknown-unknown -p ruff_fmt_dprint
+            - name: Build dprint plugin
+              run: cargo build --release --target=wasm32-unknown-unknown -p ruff_fmt_dprint
 
             - name: Get tag version
               id: get_tag_version

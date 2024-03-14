@@ -29,3 +29,11 @@ pkg_json.exports = {
 };
 
 fs.writeFileSync(pkg_path, JSON.stringify(pkg_json, null, 4));
+
+// JSR
+
+const jsr_path = path.resolve(pkg_path, "..", "jsr.jsonc");
+pkg_json.name = "@fmt/ruff-fmt";
+pkg_json.exports = "./ruff_fmt.js";
+pkg_json.exclude = ["!**", "*.tgz"];
+fs.writeFileSync(jsr_path, JSON.stringify(pkg_json, null, 4));

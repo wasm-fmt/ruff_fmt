@@ -1,10 +1,17 @@
 [![Test](https://github.com/wasm-fmt/ruff_fmt/actions/workflows/test.yml/badge.svg)](https://github.com/wasm-fmt/ruff_fmt/actions/workflows/test.yml)
-[![npm](https://img.shields.io/npm/v/@wasm-fmt/ruff_fmt)](https://www.npmjs.com/package/@wasm-fmt/ruff_fmt)
 
 # Install
 
+[![npm](https://img.shields.io/npm/v/@wasm-fmt/ruff_fmt)](https://www.npmjs.com/package/@wasm-fmt/ruff_fmt)
+
 ```bash
 npm install @wasm-fmt/ruff_fmt
+```
+
+[![jsr.io](https://jsr.io/badges/@fmt/ruff-fmt)](https://jsr.io/@fmt/ruff-fmt)
+
+```bash
+npx jsr add @fmt/ruff-fmt
 ```
 
 # Usage

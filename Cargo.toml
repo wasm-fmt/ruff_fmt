@@ -5,7 +5,7 @@ resolver = "2"
 
     [workspace.package]
     authors     = ["magic-akari <akari.ccino@gmail.com>"]
-    description = "A wasm based python formatter"
+    description = "A WASM Based Python Formatter"
     edition     = "2021"
     homepage    = "https://github.com/wasm-fmt/ruff_fmt"
     keywords    = ["wasm", "ruff", "python", "formatter"]
