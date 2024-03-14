@@ -1,12 +1,10 @@
 use std::{
-    num::{NonZeroU16, NonZeroU8, ParseIntError, TryFromIntError},
+    num::{NonZeroU16, NonZeroU8},
     path::Path,
     str::FromStr,
 };
 
-use ruff_formatter::{
-    IndentStyle as RuffIndentStyle, IndentWidth as RuffIndentWidth, LineWidth as RuffLineWidth,
-};
+use ruff_formatter::{printer::LineEnding as RuffLineEnding, IndentStyle as RuffIndentStyle};
 use ruff_python_formatter::{MagicTrailingComma, PyFormatOptions, QuoteStyle};
 
 use serde::{Deserialize, Serialize};
@@ -48,74 +46,46 @@ impl From<IndentStyle> for RuffIndentStyle {
     }
 }
 
-#[derive(Clone, Deserialize, Serialize)]
-pub struct IndentWidth(NonZeroU8);
+#[derive(Clone, Default, Deserialize, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum LineEnding {
+    #[default]
+    Lf,
+    CrLf,
+}
 
-impl FromStr for IndentWidth {
-    type Err = ParseIntError;
+impl From<LineEnding> for RuffLineEnding {
+    fn from(value: LineEnding) -> Self {
+        match value {
+            LineEnding::Lf => Self::LineFeed,
+            LineEnding::CrLf => Self::CarriageReturnLineFeed,
+        }
+    }
+}
+
+impl FromStr for LineEnding {
+    type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        NonZeroU8::from_str(s).map(Self)
-    }
-}
-
-impl From<IndentWidth> for RuffIndentWidth {
-    fn from(value: IndentWidth) -> Self {
-        Self::try_from(value.0.get()).unwrap()
-    }
-}
-
-impl From<RuffIndentWidth> for IndentWidth {
-    fn from(value: RuffIndentWidth) -> Self {
-        Self::try_from(value.value() as u8).unwrap()
-    }
-}
-
-impl TryFrom<u8> for IndentWidth {
-    type Error = TryFromIntError;
-
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        NonZeroU8::try_from(value).map(Self)
-    }
-}
-
-#[derive(Clone, Deserialize, Serialize)]
-pub struct LineWidth(NonZeroU16);
-
-impl FromStr for LineWidth {
-    type Err = ParseIntError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        NonZeroU16::from_str(s).map(Self)
-    }
-}
-
-impl From<LineWidth> for RuffLineWidth {
-    fn from(value: LineWidth) -> Self {
-        Self::try_from(value.0.get()).unwrap()
-    }
-}
-
-impl From<RuffLineWidth> for LineWidth {
-    fn from(value: RuffLineWidth) -> Self {
-        Self(NonZeroU16::try_from(value.value()).unwrap())
-    }
-}
-
-impl TryFrom<u16> for LineWidth {
-    type Error = TryFromIntError;
-
-    fn try_from(value: u16) -> Result<Self, Self::Error> {
-        NonZeroU16::try_from(value).map(Self)
+        match s {
+            "lf" => Ok(Self::Lf),
+            "crlf" => Ok(Self::CrLf),
+            _ => Err("Value not supported for LineEnding"),
+        }
     }
 }
 
 #[derive(Default, Clone, Deserialize, Serialize)]
-#[serde(rename_all = "snake_case")]
 pub struct Config {
+    #[serde(alias = "indentStyle")]
     pub indent_style: Option<IndentStyle>,
-    pub indent_width: Option<IndentWidth>,
-    pub line_width: Option<LineWidth>,
+    #[serde(alias = "indentWidth")]
+    pub indent_width: Option<NonZeroU8>,
+    #[serde(alias = "lineWidth")]
+    pub line_width: Option<NonZeroU16>,
+    #[serde(alias = "lineEnding")]
+    pub line_ending: Option<LineEnding>,
+
     pub quote_style: Option<QuoteStyle>,
     pub magic_trailing_comma: Option<MagicTrailingComma>,
 
@@ -129,13 +99,18 @@ impl Config {
         self
     }
 
-    pub fn with_indent_width(mut self, indent_width: IndentWidth) -> Self {
+    pub fn with_indent_width(mut self, indent_width: NonZeroU8) -> Self {
         self.indent_width = Some(indent_width);
         self
     }
 
-    pub fn with_line_width(mut self, line_width: LineWidth) -> Self {
+    pub fn with_line_width(mut self, line_width: NonZeroU16) -> Self {
         self.line_width = Some(line_width);
+        self
+    }
+
+    pub fn with_line_ending(mut self, line_ending: LineEnding) -> Self {
+        self.line_ending = Some(line_ending);
         self
     }
 
@@ -169,6 +144,10 @@ impl From<Config> for PyFormatOptions {
 
         if let Some(line_width) = value.line_width {
             config = config.with_line_width(line_width.into());
+        }
+
+        if let Some(line_ending) = value.line_ending {
+            config = config.with_line_ending(line_ending.into());
         }
 
         if let Some(quote_style) = value.quote_style {

@@ -25,6 +25,14 @@
             "minimum": 1,
             "maximum": 320
         },
+        "lineEndings": {
+            "description": "The line endings to use.",
+            "default": "lf",
+            "enum": [
+                "lf",
+                "crlf"
+            ]
+        },
         "quoteStyle": {
             "description": "The preferred line width at which the formatter should wrap lines.",
             "default": "double",

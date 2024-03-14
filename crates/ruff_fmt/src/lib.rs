@@ -29,6 +29,7 @@ export interface Config {
     indent_style?: "tab" | "space";
     indent_width?: number;
     line_width?: number;
+    line_ending?: "lf" | "crlf";
     quote_style?: "single" | "double";
     magic_trailing_comma?: "respect" | "ignore";
 }"#;

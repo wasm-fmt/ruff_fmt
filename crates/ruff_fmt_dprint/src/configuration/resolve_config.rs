@@ -3,6 +3,7 @@ use super::{
     line_width_from_global_config, Configuration,
 };
 use dprint_core::configuration::*;
+use ruff_fmt_config::LineEnding;
 use ruff_python_formatter::{MagicTrailingComma, PyFormatOptions, QuoteStyle};
 
 pub fn resolve_config(
@@ -36,6 +37,8 @@ pub fn resolve_config(
         &mut diagnostics,
     );
 
+    let line_ending = get_value(&mut config, "lineEnding", LineEnding::default(), &mut diagnostics);
+
     let quote_style = get_value(&mut config, "quoteStyle", QuoteStyle::default(), &mut diagnostics);
 
     let magic_trailing_comma = get_value(
@@ -51,6 +54,7 @@ pub fn resolve_config(
         .with_indent_style(indent_style)
         .with_indent_width(indent_width)
         .with_line_width(line_width)
+        .with_line_ending(line_ending)
         .with_quote_style(quote_style)
         .with_magic_trailing_comma(magic_trailing_comma);
 
