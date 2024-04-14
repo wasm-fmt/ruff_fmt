@@ -2,13 +2,13 @@
 
 # Install
 
-[![npm](https://img.shields.io/npm/v/@wasm-fmt/ruff_fmt)](https://www.npmjs.com/package/@wasm-fmt/ruff_fmt)
+[![npm](https://img.shields.io/npm/v/@wasm-fmt/ruff_fmt?color=3572A5)](https://www.npmjs.com/package/@wasm-fmt/ruff_fmt)
 
 ```bash
 npm install @wasm-fmt/ruff_fmt
 ```
 
-[![jsr.io](https://jsr.io/badges/@fmt/ruff-fmt)](https://jsr.io/@fmt/ruff-fmt)
+[![jsr.io](https://jsr.io/badges/@fmt/ruff-fmt?color=3572A5)](https://jsr.io/@fmt/ruff-fmt)
 
 ```bash
 npx jsr add @fmt/ruff-fmt
