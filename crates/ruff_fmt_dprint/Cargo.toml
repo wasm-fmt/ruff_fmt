@@ -10,8 +10,8 @@ license.workspace    = true
 repository.workspace = true
 version.workspace    = true
 
-    [package.metadata.wasm-pack.profile.release]
-    wasm-opt = ["-Os"]
+	[package.metadata.wasm-pack.profile.release]
+	wasm-opt = ["-Os"]
 
 
 [lib]
@@ -19,8 +19,8 @@ crate-type = ["lib", "cdylib"]
 
 
 [dependencies]
-anyhow                = "1"
-dprint-core           = { version = "0.66.1", features = ["wasm"] }
+anyhow                = { workspace = true }
+dprint-core           = { workspace = true, features = ["wasm"] }
 ruff_fmt_config       = { workspace = true }
 ruff_formatter        = { workspace = true }
 ruff_python_formatter = { workspace = true }

@@ -1,5 +1,7 @@
 # https://taplo.tamasfe.dev/configuration/formatter-options.html
 [formatting]
 align_entries = true
+column_width  = 120
+indent_string = "\t"
 indent_tables = true
 reorder_keys  = true
