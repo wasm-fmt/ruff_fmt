@@ -16,7 +16,7 @@ resolver = "2"
 
 
 	[workspace.dependencies]
-	anyhow                = "1"
+	anyhow                = "1.0.82"
 	dprint-core           = "0.66.1"
 	ruff_fmt_config       = { path = "crates/ruff_fmt_config" }
 	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.3.4" }
