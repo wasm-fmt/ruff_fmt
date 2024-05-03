@@ -22,7 +22,7 @@ resolver = "2"
 	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.3.4" }
 	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.3.4" }
 	serde                 = { version = "1.0" }
-	serde-wasm-bindgen    = "0.6"
+	serde-wasm-bindgen    = "0.6.5"
 	serde_json            = { version = "1.0.116" }
 	testing_macros        = "0.2.12"
 	wasm-bindgen          = "0.2.92"
