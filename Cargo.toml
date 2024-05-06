@@ -19,8 +19,8 @@ resolver = "2"
 	anyhow                = "1"
 	dprint-core           = "0.66.1"
 	ruff_fmt_config       = { path = "crates/ruff_fmt_config" }
-	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.3.4" }
-	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.3.4" }
+	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.4.3" }
+	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.4.3" }
 	serde                 = { version = "1.0" }
 	serde-wasm-bindgen    = "0.6"
 	serde_json            = { version = "1.0.116" }
