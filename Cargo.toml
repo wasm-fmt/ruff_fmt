@@ -16,16 +16,18 @@ resolver = "2"
 
 
 	[workspace.dependencies]
-	anyhow                = "1"
-	dprint-core           = "0.66.1"
 	ruff_fmt_config       = { path = "crates/ruff_fmt_config" }
 	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.4.3" }
 	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "v0.4.3" }
-	serde                 = { version = "1.0" }
-	serde-wasm-bindgen    = "0.6"
-	serde_json            = { version = "1.0.116" }
-	testing_macros        = "0.2.12"
-	wasm-bindgen          = "0.2.92"
+
+
+	anyhow             = "1"
+	dprint-core        = "0.66.1"
+	serde              = "1.0"
+	serde-wasm-bindgen = "0.6"
+	serde_json         = "1.0"
+	testing_macros     = "0.2.12"
+	wasm-bindgen       = "0.2.92"
 
 
 [profile.release]
