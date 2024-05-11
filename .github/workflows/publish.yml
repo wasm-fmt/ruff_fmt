@@ -126,7 +126,7 @@ jobs:
                   (cd target/wasm32-unknown-unknown/release/ && mv ruff_fmt_dprint.wasm plugin.wasm)
 
             - name: Release
-              uses: softprops/action-gh-release@9d7c94cfd0a1f3ed45544c887983e9fa900f0564
+              uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
               with:
                   files: |
                       crates/ruff_fmt/pkg/ruff_fmt_bg.wasm
