@@ -113,23 +113,9 @@ jobs:
                   name: build
                   path: crates/ruff_fmt/pkg
 
-            - name: Build dprint plugin
-              run: cargo build --release --target=wasm32-unknown-unknown -p ruff_fmt_dprint
-
-            - name: Get tag version
-              id: get_tag_version
-              run: echo "TAG_VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
-
-            - name: Pre-release
-              run: |
-                  sed -i 's/ruff_fmt\/0.0.0/ruff_fmt\/${{ steps.get_tag_version.outputs.TAG_VERSION }}/' crates/ruff_fmt_dprint/schema.json
-                  (cd target/wasm32-unknown-unknown/release/ && mv ruff_fmt_dprint.wasm plugin.wasm)
-
             - name: Release
               uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
               with:
                   files: |
                       crates/ruff_fmt/pkg/ruff_fmt_bg.wasm
                       crates/ruff_fmt/pkg/wasm-fmt-ruff_fmt-*.tgz
-                      crates/ruff_fmt_dprint/schema.json
-                      target/wasm32-unknown-unknown/release/plugin.wasm

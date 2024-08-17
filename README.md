@@ -84,6 +84,9 @@ import init, { format } from "@wasm-fmt/ruff_fmt/vite";
 
 # dprint plugin
 
+> [!NOTE]
+> dpint plugin is deprecated, please use https://dprint.dev/plugins/ruff instead.
+
 ```bash
 dprint config add wasm-fmt/ruff_fmt
 ```
