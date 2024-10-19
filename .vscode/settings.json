@@ -1,7 +1,8 @@
 {
     "deno.enable": true,
     "deno.enablePaths": [
-        "./crates/ruff_fmt/test_deno"
+        "./crates/ruff_fmt/test_deno",
+        "./crates/ruff_fmt/scripts/update_tests.ts"
     ],
     "rust-analyzer.cargo.target": "wasm32-unknown-unknown"
 }

@@ -1,29 +1,20 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
-import path from "node:path";
+import { basename } from "node:path";
+import { chdir } from "node:process";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
+
 import init, { format } from "../pkg/ruff_fmt_node.js";
 
 await init();
 
 const test_root = fileURLToPath(new URL("../test_data", import.meta.url));
+chdir(test_root);
 
-for await (const dirent of await fs.opendir(test_root, { recursive: true })) {
-    if (!dirent.isFile()) {
+for await (const input_path of fs.glob("**/*.{py,pyi}")) {
+    if (basename(input_path).startsWith(".")) {
         continue;
-    }
-
-    const input_path = path.join(dirent.path, dirent.name);
-    const ext = path.extname(input_path);
-
-    switch (ext) {
-        case ".py":
-        case ".pyi":
-            break;
-
-        default:
-            continue;
     }
 
     const expect_path = input_path + ".expect";
@@ -33,9 +24,7 @@ for await (const dirent of await fs.opendir(test_root, { recursive: true })) {
         fs.readFile(expect_path, "utf-8"),
     ]);
 
-    const test_name = path.relative(test_root, input_path);
-
-    test(test_name, () => {
+    test(input_path, () => {
         const actual = format(input, input_path);
         assert.equal(actual, expected);
     });
