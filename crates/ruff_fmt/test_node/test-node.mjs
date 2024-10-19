@@ -9,7 +9,7 @@ import init, { format } from "../pkg/ruff_fmt_node.js";
 
 await init();
 
-const test_root = fileURLToPath(new URL("../test_data", import.meta.url));
+const test_root = fileURLToPath(import.meta.resolve("../test_data"));
 chdir(test_root);
 
 for await (const input_path of fs.glob("**/*.{py,pyi}")) {
