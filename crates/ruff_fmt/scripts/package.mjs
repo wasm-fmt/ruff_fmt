@@ -35,5 +35,5 @@ fs.writeFileSync(pkg_path, JSON.stringify(pkg_json, null, 4));
 const jsr_path = path.resolve(pkg_path, "..", "jsr.jsonc");
 pkg_json.name = "@fmt/ruff-fmt";
 pkg_json.exports = "./ruff_fmt.js";
-pkg_json.exclude = ["!../pkg/", "*.tgz"];
+pkg_json.exclude = ["!**", "*.tgz"];
 fs.writeFileSync(jsr_path, JSON.stringify(pkg_json, null, 4));

@@ -97,7 +97,7 @@ jobs:
                   name: build
                   path: crates/ruff_fmt/pkg
 
-            - run: npx jsr publish
+            - run: npx jsr publish --allow-dirty
               working-directory: crates/ruff_fmt/pkg
 
     publish-github-release:
