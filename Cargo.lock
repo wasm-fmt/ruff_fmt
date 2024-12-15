@@ -391,7 +391,7 @@ checksum = "ba39f3699c378cd8970968dcbff9c43159ea4cfbd88d43c00b22f2ef10a435d2"
 [[package]]
 name = "ruff_cache"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "filetime",
  "glob",
@@ -428,7 +428,7 @@ dependencies = [
 [[package]]
 name = "ruff_formatter"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "drop_bomb",
  "ruff_cache",
@@ -444,7 +444,7 @@ dependencies = [
 [[package]]
 name = "ruff_macros"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "itertools",
  "proc-macro2",
@@ -456,7 +456,7 @@ dependencies = [
 [[package]]
 name = "ruff_python_ast"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "aho-corasick",
  "bitflags",
@@ -475,7 +475,7 @@ dependencies = [
 [[package]]
 name = "ruff_python_formatter"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "anyhow",
  "clap",
@@ -502,7 +502,7 @@ dependencies = [
 [[package]]
 name = "ruff_python_parser"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "bitflags",
  "bstr",
@@ -521,7 +521,7 @@ dependencies = [
 [[package]]
 name = "ruff_python_trivia"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "itertools",
  "ruff_source_file",
@@ -532,7 +532,7 @@ dependencies = [
 [[package]]
 name = "ruff_source_file"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "memchr",
  "ruff_text_size",
@@ -542,7 +542,7 @@ dependencies = [
 [[package]]
 name = "ruff_text_size"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.1#b3b2c982cdfb487bec7c38ca4e04cebbe0f1964e"
+source = "git+https://github.com/astral-sh/ruff.git?tag=0.8.3#53f2d72e022ad5ae7cfcf511318788fed959fe0b"
 dependencies = [
  "serde",
 ]
