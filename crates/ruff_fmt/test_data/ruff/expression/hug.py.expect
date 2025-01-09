@@ -167,33 +167,27 @@ func(
 
 
 # Ensure that return type annotations (which use `parenthesize_if_expands`) are also hugged.
-def func() -> (
-    [
-        1,
-        2,
-        3,
-    ]
-):
+def func() -> [
+    1,
+    2,
+    3,
+]:
     pass
 
 
-def func() -> (
-    [
-        1,
-        2,
-        3,
-    ]
-):
+def func() -> [
+    1,
+    2,
+    3,
+]:
     pass
 
 
-def func() -> (
-    [
-        1,
-        2,
-        3,
-    ]
-):
+def func() -> [
+    1,
+    2,
+    3,
+]:
     pass
 
 

@@ -1,4 +1,4 @@
-(f"{one}" f"{two}")
+(f"{one}{two}")
 
 
 rf"Not-so-tricky \"quote"
@@ -6,13 +6,13 @@ rf"Not-so-tricky \"quote"
 # Regression test for fstrings dropping comments
 result_f = (
     "Traceback (most recent call last):\n"
-    f'  File "{__file__}", line {lineno_f+5}, in _check_recursive_traceback_display\n'
+    f'  File "{__file__}", line {lineno_f + 5}, in _check_recursive_traceback_display\n'
     "    f()\n"
-    f'  File "{__file__}", line {lineno_f+1}, in f\n'
+    f'  File "{__file__}", line {lineno_f + 1}, in f\n'
     "    f()\n"
-    f'  File "{__file__}", line {lineno_f+1}, in f\n'
+    f'  File "{__file__}", line {lineno_f + 1}, in f\n'
     "    f()\n"
-    f'  File "{__file__}", line {lineno_f+1}, in f\n'
+    f'  File "{__file__}", line {lineno_f + 1}, in f\n'
     "    f()\n"
     # XXX: The following line changes depending on whether the tests
     # are run through the interactive interpreter or with -m
@@ -38,7 +38,7 @@ result_f = (
 )
 
 (
-    f"{1}" f"{2}"  # comment
+    f"{1}{2}"  # comment
 )
 
 (

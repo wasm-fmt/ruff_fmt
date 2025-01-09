@@ -165,10 +165,14 @@ pragma_comment_string2 = "Lines which end with an inline pragma comment of the f
 
 triple_quote_string = """This is a really really really long triple quote string assignment and it should not be touched."""
 
-assert some_type_of_boolean_expression, "Followed by a really really really long string that is used to provide context to the AssertionError exception."
+assert some_type_of_boolean_expression, (
+    "Followed by a really really really long string that is used to provide context to the AssertionError exception."
+)
 
-assert some_type_of_boolean_expression, "Followed by a really really really long string that is used to provide context to the AssertionError exception, which uses dynamic string {}.".format(
-    "formatting"
+assert some_type_of_boolean_expression, (
+    "Followed by a really really really long string that is used to provide context to the AssertionError exception, which uses dynamic string {}.".format(
+        "formatting"
+    )
 )
 
 assert some_type_of_boolean_expression, (
@@ -259,9 +263,9 @@ backslashes = "This is a really long string with \"embedded\" double quotes and 
 backslashes = "This is a really long string with \"embedded\" double quotes and 'single' quotes that also handles checking for an even number of backslashes \\\\"
 backslashes = "This is a really 'long' string with \"embedded double quotes\" and 'single' quotes that also handles checking for an odd number of backslashes \\\", like this...\\\\\\"
 
-short_string = "Hi" " there."
+short_string = "Hi there."
 
-func_call(short_string=("Hi" " there."))
+func_call(short_string=("Hi there."))
 
 raw_strings = r"Don't" " get" r" merged" " unless they are all raw."
 

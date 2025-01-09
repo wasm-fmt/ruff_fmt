@@ -71,10 +71,10 @@ class A:
 def foo(xxxx):
     for xxx_xxxx, _xxx_xxx, _xxx_xxxxx, xxx_xxxx in xxxx:
         for xxx in xxx_xxxx:
-            assert (
-                ("x" in xxx) or (xxx in xxx_xxx_xxxxx)
-            ), "{0} xxxxxxx xx {1}, xxx {1} xx xxx xx xxxx xx xxx xxxx: xxx xxxx {2}".format(
-                xxx_xxxx, xxx, xxxxxx.xxxxxxx(xxx_xxx_xxxxx)
+            assert ("x" in xxx) or (xxx in xxx_xxx_xxxxx), (
+                "{0} xxxxxxx xx {1}, xxx {1} xx xxx xx xxxx xx xxx xxxx: xxx xxxx {2}".format(
+                    xxx_xxxx, xxx, xxxxxx.xxxxxxx(xxx_xxx_xxxxx)
+                )
             )
 
 
@@ -82,7 +82,7 @@ class A:
     def disappearing_comment():
         return (
             (  # xx -x xxxxxxx xx xxx xxxxxxx.
-                "{{xxx_xxxxxxxxxx_xxxxxxxx}} xxx xxxx" " {} {{xxxx}} >&2".format(
+                "{{xxx_xxxxxxxxxx_xxxxxxxx}} xxx xxxx {} {{xxxx}} >&2".format(
                     "{xxxx} {xxxxxx}"
                     if xxxxx.xx_xxxxxxxxxx
                     # Disappearing Comment
@@ -267,7 +267,7 @@ def foo():
     )  # xxxx xxxxxxxxxx xxxx xx xxxx xx xxx xxxxxxxx xxxxxx xxxxx.
 
 
-some_tuple = ("some string", "some string" " which should be joined")
+some_tuple = ("some string", "some string which should be joined")
 
 some_commented_string = (  # This comment stays at the top.
     "This string is long but not so long that it needs hahahah toooooo be so greatttt"
@@ -298,9 +298,7 @@ cmd_fstring = f"sudo -E deluge-console info --detailed --sort-reverse=time_added
 
 fstring = f"This string really doesn't need to be an {{{{fstring}}}}, but this one most certainly, absolutely {does}."
 
-fstring = (
-    f"We have to remember to escape {braces}." " Like {these}." f" But not {this}."
-)
+fstring = f"We have to remember to escape {braces}. Like {{these}}. But not {this}."
 
 
 class A:
@@ -493,7 +491,7 @@ class X:
 
 
 temp_msg = (
-    f"{f'{humanize_number(pos)}.': <{pound_len+2}} "
+    f"{f'{humanize_number(pos)}.': <{pound_len + 2}} "
     f"{balance: <{bal_len + 5}} "
     f"<<{author.display_name}>>\n"
 )
@@ -578,14 +576,12 @@ message = (
 
 # It shouldn't matter if the string prefixes are capitalized.
 temp_msg = (
-    f"{F'{humanize_number(pos)}.': <{pound_len+2}} "
+    f"{f'{humanize_number(pos)}.': <{pound_len + 2}} "
     f"{balance: <{bal_len + 5}} "
     f"<<{author.display_name}>>\n"
 )
 
-fstring = (
-    f"We have to remember to escape {braces}." " Like {these}." f" But not {this}."
-)
+fstring = f"We have to remember to escape {braces}. Like {{these}}. But not {this}."
 
 welcome_to_programming = R"hello," R" world!"
 
@@ -627,11 +623,6 @@ a_dict = {
 }
 
 # Regression test for https://github.com/psf/black/issues/3506.
-s = (
-    "With single quote: ' "
-    f" {my_dict['foo']}"
-    ' With double quote: " '
-    f' {my_dict["bar"]}'
-)
+s = f"With single quote: '  {my_dict['foo']} With double quote: \"  {my_dict['bar']}"
 
-s = f'Lorem Ipsum is simply dummy text of the printing and typesetting industry:\'{my_dict["foo"]}\''
+s = f"Lorem Ipsum is simply dummy text of the printing and typesetting industry:'{my_dict['foo']}'"

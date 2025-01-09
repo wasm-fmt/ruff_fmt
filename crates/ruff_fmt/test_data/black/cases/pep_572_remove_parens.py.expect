@@ -35,7 +35,7 @@ a[(x := 12)]
 a[: (x := 13)]
 
 # we don't touch expressions in f-strings but if we do one day, don't break 'em
-f"{(x:=10)}"
+f"{(x := 10)}"
 
 
 def a():

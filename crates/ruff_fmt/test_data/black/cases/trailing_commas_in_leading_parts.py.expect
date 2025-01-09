@@ -41,6 +41,6 @@ assert (
 )
 
 # Regression test for https://github.com/psf/black/issues/3414.
-assert (
-    xxxxxxxxx.xxxxxxxxx.xxxxxxxxx(xxxxxxxxx).xxxxxxxxxxxxxxxxxx()
-), "xxx {xxxxxxxxx} xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+assert xxxxxxxxx.xxxxxxxxx.xxxxxxxxx(xxxxxxxxx).xxxxxxxxxxxxxxxxxx(), (
+    "xxx {xxxxxxxxx} xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+)

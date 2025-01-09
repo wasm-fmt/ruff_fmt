@@ -1,5 +1,5 @@
 def foo(e):
-    f""" {'.'.join(e)}"""
+    f""" {".".join(e)}"""
 
 
 def bar(e):
@@ -7,4 +7,4 @@ def bar(e):
 
 
 def baz(e):
-    f""" {'.'.join(e)}"""
+    f""" {".".join(e)}"""

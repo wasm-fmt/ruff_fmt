@@ -29,12 +29,10 @@ def foo(
 
 
 # magic trailing comma in return type, no params
-def a() -> (
-    tuple[
-        a,
-        b,
-    ]
-): ...
+def a() -> tuple[
+    a,
+    b,
+]: ...
 
 
 # magic trailing comma in return type, params
@@ -72,13 +70,11 @@ def aaaaaaaaaaaaaaaaa(
 
 
 # long return type, no param list
-def foo() -> (
-    list[
-        Loooooooooooooooooooooooooooooooooooong,
-        Loooooooooooooooooooong,
-        Looooooooooooong,
-    ]
-): ...
+def foo() -> list[
+    Loooooooooooooooooooooooooooooooooooong,
+    Loooooooooooooooooooong,
+    Looooooooooooong,
+]: ...
 
 
 # long function name, no param list, no return value
