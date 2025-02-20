@@ -12,13 +12,13 @@ resolver = "2"
 	license     = "MIT"
 	readme      = "README.md"
 	repository  = "https://github.com/wasm-fmt/ruff_fmt"
-	version     = "0.9.4"
+	version     = "0.8.6"
 
 
 	[workspace.dependencies]
 	ruff_fmt_config       = { path = "crates/ruff_fmt_config" }
-	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.9.4" }
-	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.9.4" }
+	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.8.6" }
+	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.8.6" }
 
 
 	anyhow             = "1.0"
