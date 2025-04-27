@@ -1,0 +1,75 @@
+name: Update Ruff Dependencies
+
+on:
+    workflow_dispatch: # Allow manual triggering
+    schedule:
+        - cron: "0 0 * * 2" # Run weekly on Tuesday at midnight UTC
+
+jobs:
+    update-ruff:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Check for new Ruff releases
+              id: check-releases
+              run: |
+                  # Get the latest release tag from the Ruff repository
+                  LATEST_TAG=$(curl -s https://api.github.com/repos/astral-sh/ruff/releases/latest | jq -r '.tag_name')
+                  echo "Latest Ruff tag: $LATEST_TAG"
+
+                  # Get current tag from Cargo.toml
+                  CURRENT_TAG=$(grep -oP 'tag = "\K[^"]+' Cargo.toml | head -1)
+                  echo "Current tag in Cargo.toml: $CURRENT_TAG"
+
+                  # Set outputs
+                  echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+                  echo "current_tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
+
+                  # Determine if update is needed
+                  if [ "$LATEST_TAG" != "$CURRENT_TAG" ]; then
+                    echo "update_needed=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "update_needed=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Update Cargo.toml
+              if: steps.check-releases.outputs.update_needed == 'true'
+              run: |
+                  LATEST_TAG="${{ steps.check-releases.outputs.latest_tag }}"
+                  CURRENT_TAG="${{ steps.check-releases.outputs.current_tag }}"
+
+                  sed -i '/git = "https:\/\/github.com\/astral-sh\/ruff.git"/s/tag = "[^"]*"/tag = "'$LATEST_TAG'"/' Cargo.toml
+
+                  cargo update
+
+                  echo "Updated Cargo.toml:"
+                  grep -A1 "https://github.com/astral-sh/ruff.git" Cargo.toml
+
+            - name: Commit changes
+              if: steps.check-releases.outputs.update_needed == 'true'
+              run: |
+                  git config --local user.email "github-actions[bot]@users.noreply.github.com"
+                  git config --local user.name "GitHub Action"
+                  git checkout -b update-ruff-dependencies
+                  git add Cargo.toml Cargo.lock
+                  git commit -m "chore: update ruff dependencies to ${{ steps.check-releases.outputs.latest_tag }}"
+                  git push -f origin update-ruff-dependencies
+
+            - name: Create Pull Request
+              if: steps.check-releases.outputs.update_needed == 'true'
+              run: |
+                  gh pr create \
+                  --base main \
+                  --head update-ruff-dependencies \
+                  --title "Update Ruff dependencies to ${{ steps.check-releases.outputs.latest_tag }}" \
+                  --body "This PR updates the Ruff dependencies from ${{ steps.check-releases.outputs.current_tag }} to ${{ steps.check-releases.outputs.latest_tag }}.
+
+                      This is an automated PR created by the update-ruff workflow."
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
