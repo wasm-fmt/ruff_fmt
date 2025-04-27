@@ -76,7 +76,4 @@ jobs:
 
             - name: Trigger test workflow
               if: steps.check-releases.outputs.update_needed == 'true'
-              run: |
-                  gh workflow run test.yml --ref update-ruff-dependencies
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              uses: ./.github/workflows/test.yml
