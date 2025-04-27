@@ -70,6 +70,13 @@ jobs:
                   --title "Update Ruff dependencies to ${{ steps.check-releases.outputs.latest_tag }}" \
                   --body "This PR updates the Ruff dependencies from ${{ steps.check-releases.outputs.current_tag }} to ${{ steps.check-releases.outputs.latest_tag }}.
 
-                      This is an automated PR created by the update-ruff workflow."
+                  This is an automated PR created by the update-ruff workflow."
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Trigger test workflow
+              if: steps.check-releases.outputs.update_needed == 'true'
+              run: |
+                  gh workflow run test.yml --ref update-ruff-dependencies
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
