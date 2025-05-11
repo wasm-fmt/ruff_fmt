@@ -17,8 +17,8 @@ resolver = "2"
 
 	[workspace.dependencies]
 	ruff_fmt_config       = { path = "crates/ruff_fmt_config" }
-	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.9.7" }
-	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.9.7" }
+	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.10.0" }
+	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.10.0" }
 
 
 	anyhow             = "1.0"
