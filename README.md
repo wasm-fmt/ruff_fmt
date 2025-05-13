@@ -46,7 +46,7 @@ with custom options:
 import init, { format } from "@wasm-fmt/ruff_fmt";
 
 // ...
-const formatted = format(input, {
+const formatted = format(input, "main.py", {
     indent_style: "space",
     indent_width: 4,
     line_width: 88,
