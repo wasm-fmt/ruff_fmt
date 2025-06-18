@@ -114,7 +114,7 @@ jobs:
                   path: crates/ruff_fmt/pkg
 
             - name: Release
-              uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
+              uses: softprops/action-gh-release@f37a2f9143791b88da06f2c143d376e00fce81dc
               with:
                   files: |
                       crates/ruff_fmt/pkg/ruff_fmt_bg.wasm
