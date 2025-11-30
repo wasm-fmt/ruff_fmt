@@ -17,16 +17,21 @@ resolver = "2"
 
 	[workspace.dependencies]
 	ruff_fmt_config       = { path = "crates/ruff_fmt_config" }
-	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.10.0" }
-	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.10.0" }
+	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.12.1" }
+	ruff_python_ast       = { git = "https://github.com/astral-sh/ruff.git", tag = "0.12.1" }
+	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.12.1" }
 
 
-	anyhow             = "1.0"
-	serde              = "1.0"
+	anyhow = "1.0"
+	getrandom = { git = "https://github.com/rust-random/getrandom", rev = "5ecab629385174c842b19716e90b0c8896790ddc", features = [
+		"wasm_js",
+	] }
+	serde = "1.0"
 	serde-wasm-bindgen = "0.6"
-	serde_json         = "1.0"
-	testing_macros     = "1"
-	wasm-bindgen       = "0.2.95"
+	serde_json = "1.0"
+	testing_macros = "1"
+	uuid = { version = "1", features = ["js"] }
+	wasm-bindgen = "0.2.95"
 
 
 [profile.release]
@@ -39,3 +44,4 @@ strip         = "symbols" # set to `false` for debug information
 
 [patch.crates-io]
 unicode_names2 = { path = "crates/unicode_names2_patch" }
+web-time       = { path = "crates/web-time" }
