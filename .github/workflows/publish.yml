@@ -28,7 +28,7 @@ jobs:
               working-directory: crates/ruff_fmt/pkg
 
             - name: Upload
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v5
               with:
                   name: build
                   path: crates/ruff_fmt/pkg
@@ -46,7 +46,7 @@ jobs:
                   node-version-file: ".node-version"
                   registry-url: "https://registry.npmjs.org"
 
-            - uses: actions/download-artifact@v4
+            - uses: actions/download-artifact@v6
               with:
                   name: build
                   path: crates/ruff_fmt/pkg
@@ -69,7 +69,7 @@ jobs:
                   node-version-file: ".node-version"
                   registry-url: "https://npm.pkg.github.com"
 
-            - uses: actions/download-artifact@v4
+            - uses: actions/download-artifact@v6
               with:
                   name: build
                   path: crates/ruff_fmt/pkg
@@ -92,7 +92,7 @@ jobs:
               with:
                   node-version-file: ".node-version"
 
-            - uses: actions/download-artifact@v4
+            - uses: actions/download-artifact@v6
               with:
                   name: build
                   path: crates/ruff_fmt/pkg
@@ -108,7 +108,7 @@ jobs:
             contents: write
         steps:
             - uses: actions/checkout@v6
-            - uses: actions/download-artifact@v4
+            - uses: actions/download-artifact@v6
               with:
                   name: build
                   path: crates/ruff_fmt/pkg
