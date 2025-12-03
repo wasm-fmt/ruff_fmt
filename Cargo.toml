@@ -23,7 +23,7 @@ resolver = "2"
 
 
 	anyhow = "1.0"
-	getrandom = { git = "https://github.com/rust-random/getrandom", rev = "5ecab629385174c842b19716e90b0c8896790ddc", features = [
+	getrandom = { git = "https://github.com/rust-random/getrandom", rev = "8861a62a25cafad5a0cc5bc1f16715865b9d4456", features = [
 		"wasm_js",
 	] }
 	serde = "1.0"

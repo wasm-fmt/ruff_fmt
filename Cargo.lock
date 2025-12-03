@@ -350,19 +350,6 @@ checksum = "d9c4f5dac5e15c24eb999c26181a6ca40b39fe946cbe4c263c7209467bc83af2"
 
 [[package]]
 name = "getrandom"
-version = "0.3.3"
-source = "git+https://github.com/rust-random/getrandom?rev=5ecab629385174c842b19716e90b0c8896790ddc#5ecab629385174c842b19716e90b0c8896790ddc"
-dependencies = [
- "cfg-if",
- "js-sys",
- "libc",
- "r-efi",
- "wasi",
- "wasm-bindgen",
-]
-
-[[package]]
-name = "getrandom"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "899def5c37c4fd7b2664648c28120ecec138e4d395b459e5ca34f9cce2dd77fd"
@@ -371,6 +358,19 @@ dependencies = [
  "libc",
  "r-efi",
  "wasip2",
+]
+
+[[package]]
+name = "getrandom"
+version = "0.3.4"
+source = "git+https://github.com/rust-random/getrandom?rev=8861a62a25cafad5a0cc5bc1f16715865b9d4456#8861a62a25cafad5a0cc5bc1f16715865b9d4456"
+dependencies = [
+ "cfg-if",
+ "js-sys",
+ "libc",
+ "r-efi",
+ "wasip2",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -663,7 +663,7 @@ version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "99d9a13982dcf210057a8a78572b2217b667c3beacbf3a0d8b454f6f82837d38"
 dependencies = [
- "getrandom 0.3.4",
+ "getrandom 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -796,7 +796,7 @@ dependencies = [
 name = "ruff_fmt"
 version = "0.12.1"
 dependencies = [
- "getrandom 0.3.3",
+ "getrandom 0.3.4 (git+https://github.com/rust-random/getrandom?rev=8861a62a25cafad5a0cc5bc1f16715865b9d4456)",
  "ruff_fmt_config",
  "ruff_formatter",
  "ruff_python_formatter",
@@ -1273,7 +1273,7 @@ version = "1.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2f87b8aa10b915a06587d0dec516c282ff295b475d94abf425d62b57710070a2"
 dependencies = [
- "getrandom 0.3.4",
+ "getrandom 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "js-sys",
  "rand",
  "uuid-macro-internal",
@@ -1289,15 +1289,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
-]
-
-[[package]]
-name = "wasi"
-version = "0.14.7+wasi-0.2.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "883478de20367e224c0090af9cf5f9fa85bed63a95c1abf3afc5c083ebc06e8c"
-dependencies = [
- "wasip2",
 ]
 
 [[package]]
