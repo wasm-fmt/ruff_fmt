@@ -1,29 +1,31 @@
 import { assertEquals } from "jsr:@std/assert";
-import { walk } from "jsr:@std/fs/walk";
+import { expandGlob } from "jsr:@std/fs";
+import { fromFileUrl } from "jsr:@std/path";
+import { parseSnapshot } from "../test_utils/index.js";
 
 import init, { format } from "../pkg/ruff_fmt.js";
 
 await init();
 
-const test_root = new URL(import.meta.resolve("../test_data"));
-Deno.chdir(test_root);
+const project_root = fromFileUrl(import.meta.resolve("../../.."));
+const snapshots_root = fromFileUrl(import.meta.resolve("../snapshots"));
 
-for await (const entry of walk(".", {
-    includeDirs: false,
-    exts: ["py", "pyi"],
-})) {
-    if (entry.name.startsWith(".")) {
-        continue;
-    }
+for await (const { path: snapshotPath } of expandGlob(
+    `${snapshots_root}/*.snap`,
+)) {
+    const snapshotContent = await Deno.readTextFile(snapshotPath);
+    const info = parseSnapshot(snapshotContent);
+    if (!info) continue;
 
-    const input_path = entry.path;
-    const expect_path = input_path + ".expect";
+    const input_file = `${project_root}/${info.input_file}`;
+    const contentPath = `${snapshotPath}.${info.extension}`;
+    const [input, expected] = await Promise.all([
+        Deno.readTextFile(input_file),
+        Deno.readTextFile(contentPath),
+    ]);
 
-    const input = Deno.readTextFileSync(input_path);
-    const expected = Deno.readTextFileSync(expect_path);
-
-    Deno.test(input_path, () => {
-        const actual = format(input, entry.path);
+    Deno.test(info.input_file, () => {
+        const actual = format(input, info.input_file);
         assertEquals(actual, expected);
     });
 }

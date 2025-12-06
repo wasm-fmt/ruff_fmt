@@ -1,31 +1,30 @@
 import assert from "node:assert/strict";
-import fs from "node:fs/promises";
-import { basename } from "node:path";
-import { chdir } from "node:process";
+import { glob, readFile } from "node:fs/promises";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
+import { parseSnapshot } from "../test_utils/index.js";
 
 import init, { format } from "../pkg/ruff_fmt_node.js";
 
 await init();
 
-const test_root = fileURLToPath(import.meta.resolve("../test_data"));
-chdir(test_root);
+const project_root = fileURLToPath(import.meta.resolve("../../.."));
+const snapshots_root = fileURLToPath(import.meta.resolve("../snapshots"));
 
-for await (const input_path of fs.glob("**/*.{py,pyi}")) {
-    if (basename(input_path).startsWith(".")) {
-        continue;
-    }
+for await (const snapshotPath of glob(`${snapshots_root}/*.snap`)) {
+    const snapshotContent = await readFile(snapshotPath, "utf-8");
+    const info = parseSnapshot(snapshotContent);
+    if (!info) continue;
 
-    const expect_path = input_path + ".expect";
-
+    const input_file = `${project_root}/${info.input_file}`;
+    const contentPath = `${snapshotPath}.${info.extension}`;
     const [input, expected] = await Promise.all([
-        fs.readFile(input_path, "utf-8"),
-        fs.readFile(expect_path, "utf-8"),
+        readFile(input_file, "utf-8"),
+        readFile(contentPath, "utf-8"),
     ]);
 
-    test(input_path, () => {
-        const actual = format(input, input_path);
+    test(info.input_file, () => {
+        const actual = format(input, info.input_file);
         assert.equal(actual, expected);
     });
 }

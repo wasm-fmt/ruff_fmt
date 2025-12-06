@@ -1,0 +1,7 @@
+---
+source: crates/ruff_fmt/src/test.rs
+expression: output.into_bytes()
+input_file: crates/ruff_fmt/test_data/ruff/expression/binary.py
+extension: py
+snapshot_kind: binary
+---
