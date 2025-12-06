@@ -11,8 +11,7 @@ repository.workspace  = true
 version.workspace     = true
 
 	[package.metadata.wasm-pack.profile.release]
-	wasm-opt = ["-Os"]
-
+	wasm-opt = ["-Os", "--enable-bulk-memory", "--enable-nontrapping-float-to-int"]
 
 [dependencies]
 getrandom             = { workspace = true }
