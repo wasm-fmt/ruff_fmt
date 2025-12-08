@@ -41,5 +41,5 @@ panic         = "abort"   # Let it crash and force ourselves to write safe Rust.
 strip         = "symbols" # set to `false` for debug information
 
 [patch.crates-io]
+regex          = { path = "crates/regex_patch" }
 unicode_names2 = { path = "crates/unicode_names2_patch" }
-web-time       = { path = "crates/web-time" }
