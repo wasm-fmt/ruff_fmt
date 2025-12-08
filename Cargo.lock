@@ -933,7 +933,7 @@ dependencies = [
 
 [[package]]
 name = "ruff_fmt"
-version = "0.12.9"
+version = "0.14.8"
 dependencies = [
  "getrandom",
  "insta",
@@ -949,7 +949,7 @@ dependencies = [
 
 [[package]]
 name = "ruff_fmt_config"
-version = "0.12.9"
+version = "0.14.8"
 dependencies = [
  "ruff_formatter",
  "ruff_python_formatter",
