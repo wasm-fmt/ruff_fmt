@@ -6,5 +6,5 @@ def test():
         pass
 
 
-# Get's formatted again
+# Gets formatted again
 a + b

@@ -131,6 +131,12 @@ x = 1
 def f():
     pass
 
+if True:
+    def a():
+        return 1
+else:
+    pass
+
 # comment
 
 x = 1

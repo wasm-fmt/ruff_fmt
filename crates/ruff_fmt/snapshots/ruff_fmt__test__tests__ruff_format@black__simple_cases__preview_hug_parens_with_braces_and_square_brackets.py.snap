@@ -1,7 +1,0 @@
----
-source: crates/ruff_fmt/src/test.rs
-expression: output.into_bytes()
-input_file: crates/ruff_fmt/test_data/black/simple_cases/preview_hug_parens_with_braces_and_square_brackets.py
-extension: py
-snapshot_kind: binary
----

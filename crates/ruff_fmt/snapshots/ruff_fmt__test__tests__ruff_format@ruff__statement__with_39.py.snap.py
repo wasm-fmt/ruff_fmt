@@ -104,3 +104,9 @@ with (
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa + bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb as c
 ):
     pass
+
+with (  # outer comment
+    CtxManager1(),
+    CtxManager2(),
+):
+    pass

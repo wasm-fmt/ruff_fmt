@@ -1,0 +1,7 @@
+---
+source: crates/ruff_fmt/src/test.rs
+expression: output.into_bytes()
+input_file: crates/ruff_fmt/test_data/ruff/stub_files/blank_line_after_nested_stub_class_eof.pyi
+extension: pyi
+snapshot_kind: binary
+---

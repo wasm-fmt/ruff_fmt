@@ -166,62 +166,6 @@ func(
 )
 
 
-# Ensure that return type annotations (which use `parenthesize_if_expands`) are also hugged.
-def func() -> [
-    1,
-    2,
-    3,
-]:
-    pass
-
-
-def func() -> [
-    1,
-    2,
-    3,
-]:
-    pass
-
-
-def func() -> [
-    1,
-    2,
-    3,
-]:
-    pass
-
-
-def func() -> (  # comment
-    [
-        1,
-        2,
-        3,
-    ]
-):
-    pass
-
-
-def func() -> (
-    [
-        1,
-        2,
-        3,
-    ]  # comment
-):
-    pass
-
-
-def func() -> (
-    [
-        1,
-        2,
-        3,
-    ]
-    # comment
-):
-    pass
-
-
 # Ensure that nested lists are hugged.
 func(
     [

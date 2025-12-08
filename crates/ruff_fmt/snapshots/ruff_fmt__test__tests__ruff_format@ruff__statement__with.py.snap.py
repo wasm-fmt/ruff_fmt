@@ -365,9 +365,78 @@ if True:
     ):
         pass
 
+if True:
+    with (
+        anyio.CancelScope(shield=True)
+        if get_running_loop()
+        else contextlib.nullcontext() as c
+    ):
+        pass
 
 with (
     Child(aaaaaaaaa, bbbbbbbbbbbbbbb, cccccc),
     Document(aaaaa, bbbbbbbbbb, ddddddddddddd),
+):
+    pass
+
+# Regression test for https://github.com/astral-sh/ruff/issues/10267
+with open(
+    "/etc/hosts"  # This is an incredibly long comment that has been replaced for sanitization
+):
+    pass
+
+with (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa + bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+):
+    pass
+
+with (
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    + bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb as b
+):
+    pass
+
+if True:
+    with (
+        anyio.CancelScope(shield=True)
+        if get_running_loop()
+        else contextlib.nullcontext() as b
+    ):
+        pass
+
+
+# Regression test for https://github.com/astral-sh/ruff/issues/14001
+with (
+    open(
+        "some/path.txt",
+        "rb",
+    )
+    if True
+    else open("other/path.txt")
+    # Bar
+):
+    pass
+
+
+with (  # trailing comment
+    open(
+        "some/path.txt",
+        "rb",
+    )
+    if True
+    else open("other/path.txt")
+    # Bar
+):
+    pass
+
+
+with (
+    open(
+        "some/path.txt",
+        "rb",
+    )
+    if True
+    else open("other/path.txt")
+    # Bar
 ):
     pass

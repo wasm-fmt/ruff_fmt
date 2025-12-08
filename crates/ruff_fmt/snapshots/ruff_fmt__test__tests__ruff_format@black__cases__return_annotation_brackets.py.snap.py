@@ -125,7 +125,6 @@ def foo() -> tuple[
 
 
 # Magic trailing comma example, with params
-# this is broken - the trailing comma is transferred to the param list. Fixed in preview
 def foo(
     a, b
 ) -> tuple[
