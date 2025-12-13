@@ -4,8 +4,8 @@
   "packageRules": [
     {
       "groupName": "ruff dependencies",
-      "matchPackagePatterns": ["^ruff"],
-      "matchDatasources": ["github-tags"]
+      "matchPackageNames": ["/^ruff/"],
+      "matchDatasources": ["github-tags", "crate"]
     }
   ]
 }
