@@ -960,7 +960,6 @@ version = "0.14.8"
 dependencies = [
  "getrandom",
  "insta",
- "ruff_fmt_config",
  "ruff_formatter",
  "ruff_python_formatter",
  "serde",
@@ -968,16 +967,6 @@ dependencies = [
  "serde_json",
  "uuid",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "ruff_fmt_config"
-version = "0.14.8"
-dependencies = [
- "ruff_formatter",
- "ruff_python_formatter",
- "serde",
- "serde_json",
 ]
 
 [[package]]

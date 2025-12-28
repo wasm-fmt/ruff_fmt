@@ -1,7 +1,9 @@
 #[cfg(test)]
 mod test;
 
-use ruff_fmt_config::Config as InnerConfig;
+pub mod config;
+
+use config::Config as InnerConfig;
 use ruff_python_formatter::format_module_source;
 
 #[wasm_bindgen]

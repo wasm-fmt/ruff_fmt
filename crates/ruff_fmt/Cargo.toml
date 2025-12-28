@@ -15,7 +15,6 @@ version.workspace     = true
 
 [dependencies]
 getrandom             = { workspace = true }
-ruff_fmt_config       = { workspace = true }
 ruff_formatter        = { workspace = true }
 ruff_python_formatter = { workspace = true }
 serde                 = { workspace = true, features = ["derive"] }
