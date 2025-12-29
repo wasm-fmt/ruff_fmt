@@ -962,6 +962,7 @@ dependencies = [
  "insta",
  "ruff_formatter",
  "ruff_python_formatter",
+ "ruff_text_size",
  "serde",
  "serde-wasm-bindgen",
  "serde_json",
