@@ -1,11 +1,10 @@
 [package]
-name    = "unicode_names2"
-version = "1.2.2"
-
-authors.workspace    = true
-edition.workspace    = true
-license.workspace    = true
-repository.workspace = true
+authors     = ["magic-akari <akari.ccino@gmail.com>"]
+edition     = "2021"
+license     = "MIT"
+name        = "unicode_names2"
+repository  = "https://github.com/wasm-fmt/ruff_fmt"
+version     = "1.2.2"
 
 
 	[package.metadata.wasm-pack.profile.release]

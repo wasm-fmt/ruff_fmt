@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/black/cases/return_annotation_brackets.py
+extension: py
+snapshot_kind: binary
+---

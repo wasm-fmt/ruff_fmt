@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/black/cases/comments_non_breaking_space.py
+extension: py
+snapshot_kind: binary
+---

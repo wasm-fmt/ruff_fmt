@@ -1,36 +1,36 @@
-[workspace]
-members  = ["crates/*"]
-resolver = "2"
+[package]
+authors     = ["magic-akari <akari.ccino@gmail.com>"]
+description = "A WASM Based Python Formatter"
+edition     = "2021"
+homepage    = "https://github.com/wasm-fmt/ruff_fmt"
+keywords    = ["wasm", "ruff", "python", "formatter"]
+license     = "MIT"
+name        = "ruff_fmt"
+readme      = "README.md"
+repository  = "https://github.com/wasm-fmt/ruff_fmt"
+version     = "0.14.11"
 
 
-	[workspace.package]
-	authors     = ["magic-akari <akari.ccino@gmail.com>"]
-	description = "A WASM Based Python Formatter"
-	edition     = "2021"
-	homepage    = "https://github.com/wasm-fmt/ruff_fmt"
-	keywords    = ["wasm", "ruff", "python", "formatter"]
-	license     = "MIT"
-	readme      = "README.md"
-	repository  = "https://github.com/wasm-fmt/ruff_fmt"
-	version     = "0.14.11"
+	[package.metadata.wasm-pack.profile.release]
+	wasm-opt = ["-Os", "--enable-bulk-memory", "--enable-nontrapping-float-to-int"]
 
 
-	[workspace.dependencies]
-	ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
-	ruff_python_ast       = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
-	ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
-	ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
+[dependencies]
+getrandom             = { version = "0.3.1", features = ["wasm_js"] }
+ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
+ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
+ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
+serde                 = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen    = "0.6"
+serde_json            = { version = "1.0", features = ["preserve_order"] }
+uuid                  = { version = "1", features = ["js"] }
+wasm-bindgen          = "0.2.95"
 
+[dev-dependencies]
+insta = { version = "1", features = ["glob"] }
 
-	anyhow             = "1.0"
-	getrandom          = { version = "0.3.1", features = ["wasm_js"] }
-	insta              = { version = "1", features = ["glob"] }
-	serde              = "1.0"
-	serde-wasm-bindgen = "0.6"
-	serde_json         = "1.0"
-	uuid               = { version = "1", features = ["js"] }
-	wasm-bindgen       = "0.2.95"
-
+[lib]
+crate-type = ["cdylib", "rlib"]
 
 [profile.release]
 codegen-units = 1

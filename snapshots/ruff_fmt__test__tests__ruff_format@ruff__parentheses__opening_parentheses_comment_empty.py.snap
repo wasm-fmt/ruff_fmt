@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/parentheses/opening_parentheses_comment_empty.py
+extension: py
+snapshot_kind: binary
+---

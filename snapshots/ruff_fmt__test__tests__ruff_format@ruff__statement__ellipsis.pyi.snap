@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/statement/ellipsis.pyi
+extension: pyi
+snapshot_kind: binary
+---

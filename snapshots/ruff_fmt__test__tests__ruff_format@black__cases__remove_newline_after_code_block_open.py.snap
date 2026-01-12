@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/black/cases/remove_newline_after_code_block_open.py
+extension: py
+snapshot_kind: binary
+---

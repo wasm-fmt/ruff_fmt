@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/black/cases/remove_lone_list_item_parens.py
+extension: py
+snapshot_kind: binary
+---

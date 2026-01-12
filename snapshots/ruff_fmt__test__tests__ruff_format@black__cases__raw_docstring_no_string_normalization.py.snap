@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/black/cases/raw_docstring_no_string_normalization.py
+extension: py
+snapshot_kind: binary
+---

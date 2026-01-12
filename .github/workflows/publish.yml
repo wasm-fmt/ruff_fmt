@@ -21,17 +21,17 @@ jobs:
               run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
             - name: Build wasm
-              run: ./crates/ruff_fmt/scripts/build.sh
+              run: ./scripts/build.sh
 
             - name: Package
               run: npm pack
-              working-directory: crates/ruff_fmt/pkg
+              working-directory: pkg
 
             - name: Upload
               uses: actions/upload-artifact@v6
               with:
                   name: build
-                  path: crates/ruff_fmt/pkg
+                  path: pkg
 
     publish-npm:
         if: startsWith(github.ref, 'refs/tags/v')
@@ -49,10 +49,10 @@ jobs:
             - uses: actions/download-artifact@v7
               with:
                   name: build
-                  path: crates/ruff_fmt/pkg
+                  path: pkg
 
             - run: npm publish --provenance
-              working-directory: crates/ruff_fmt/pkg
+              working-directory: pkg
 
     publish-github:
         if: startsWith(github.ref, 'refs/tags/v')
@@ -70,10 +70,10 @@ jobs:
             - uses: actions/download-artifact@v7
               with:
                   name: build
-                  path: crates/ruff_fmt/pkg
+                  path: pkg
 
             - run: npm publish
-              working-directory: crates/ruff_fmt/pkg
+              working-directory: pkg
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -93,10 +93,10 @@ jobs:
             - uses: actions/download-artifact@v7
               with:
                   name: build
-                  path: crates/ruff_fmt/pkg
+                  path: pkg
 
             - run: npx jsr publish --allow-dirty
-              working-directory: crates/ruff_fmt/pkg
+              working-directory: pkg
 
     publish-github-release:
         if: startsWith(github.ref, 'refs/tags/v')
@@ -109,11 +109,11 @@ jobs:
             - uses: actions/download-artifact@v7
               with:
                   name: build
-                  path: crates/ruff_fmt/pkg
+                  path: pkg
 
             - name: Release
               uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
               with:
                   files: |
-                      crates/ruff_fmt/pkg/ruff_fmt_bg.wasm
-                      crates/ruff_fmt/pkg/wasm-fmt-ruff_fmt-*.tgz
+                      pkg/ruff_fmt_bg.wasm
+                      pkg/wasm-fmt-ruff_fmt-*.tgz

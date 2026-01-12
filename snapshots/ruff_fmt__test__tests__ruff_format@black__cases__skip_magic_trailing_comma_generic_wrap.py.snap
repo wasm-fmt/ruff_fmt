@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/black/cases/skip_magic_trailing_comma_generic_wrap.py
+extension: py
+snapshot_kind: binary
+---

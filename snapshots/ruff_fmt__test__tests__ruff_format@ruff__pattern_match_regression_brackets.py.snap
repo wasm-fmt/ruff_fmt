@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/pattern_match_regression_brackets.py
+extension: py
+snapshot_kind: binary
+---

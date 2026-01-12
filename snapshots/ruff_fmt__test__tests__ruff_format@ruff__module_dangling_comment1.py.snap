@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/module_dangling_comment1.py
+extension: py
+snapshot_kind: binary
+---

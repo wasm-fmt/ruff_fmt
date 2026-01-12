@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/black/cases/remove_redundant_parens_in_case_guard.py
+extension: py
+snapshot_kind: binary
+---

@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/fmt_on_off/trailing_semicolon.py
+extension: py
+snapshot_kind: binary
+---

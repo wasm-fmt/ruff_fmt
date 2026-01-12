@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/blank_line_before_class_docstring.py
+extension: py
+snapshot_kind: binary
+---

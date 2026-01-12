@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/stub_files/decorated_class_after_function.pyi
+extension: pyi
+snapshot_kind: binary
+---

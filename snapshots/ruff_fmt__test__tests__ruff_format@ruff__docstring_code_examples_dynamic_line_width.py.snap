@@ -1,0 +1,7 @@
+---
+source: src/test.rs
+expression: output.into_bytes()
+input_file: test_data/ruff/docstring_code_examples_dynamic_line_width.py
+extension: py
+snapshot_kind: binary
+---
