@@ -70,6 +70,7 @@ interface LayoutConfig {
     line_ending?: "lf" | "crlf";
 }
 
+/** Configuration for the Python formatter */
 export interface Config extends LayoutConfig {
     /** The preferred quote style to use (single vs double quotes) */
     quote_style?: "single" | "double" | "preserve";

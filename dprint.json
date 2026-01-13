@@ -1,0 +1,22 @@
+{
+	"useTabs": true,
+	"indentWidth": 4,
+	"lineWidth": 120,
+	"newLineKind": "lf",
+	"json": {},
+	"markdown": {},
+	"oxc": {},
+	"excludes": [
+		"**/*-lock.json",
+		"**/node_modules",
+		"test_data",
+		"snapshots",
+		"target",
+		"pkg"
+	],
+	"plugins": [
+		"https://plugins.dprint.dev/json-0.21.1.wasm",
+		"https://plugins.dprint.dev/markdown-0.20.0.wasm",
+		"https://plugins.dprint.dev/oxc-0.2.0.wasm"
+	]
+}

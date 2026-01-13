@@ -1,6 +1,16 @@
 name: Test
 
-on: [push, pull_request]
+on:
+    workflow_dispatch:
+    pull_request:
+        types: [opened, synchronize]
+    push:
+        branches:
+            - "*"
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.pull_request.number || github.sha }}
+    cancel-in-progress: ${{ github.ref_name != 'main' }}
 
 env:
     CARGO_INCREMENTAL: 0
@@ -9,93 +19,77 @@ env:
     RUST_LOG: "off"
 
 jobs:
-    cargo-fmt:
-        name: Cargo fmt
-        runs-on: ubuntu-latest
+    test:
+        name: Test on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, macos-latest, windows-latest]
         steps:
             - uses: actions/checkout@v6
-            - run: cargo fmt -- --check
+            - uses: taiki-e/install-action@v2
+              with:
+                  tool: dprint,taplo,just
+            - run: just check
+            - run: just test-rust
 
-    cargo-clippy:
-        name: Cargo clippy
+    audit:
+        name: Audit
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - run: cargo clippy
-
-    cargo-test:
-        name: Cargo test
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
-            - run: cargo check
-            - run: cargo test
+            - uses: taiki-e/install-action@v2
+              with:
+                  tool: cargo-audit
+            - run: cargo audit
 
     wasm-build:
         name: Wasm build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-
-            - name: Install wasm-pack
-              run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-
+            - uses: taiki-e/install-action@v2
+              with:
+                  tool: wasm-pack,just
             - name: Build wasm
-              run: ./scripts/build.sh
-
-            - name: Package
-              run: npm pack
+              run: just build
+            - run: npm pack
               working-directory: pkg
-
             - name: Upload
               uses: actions/upload-artifact@v6
               with:
                   name: build
                   path: pkg
 
-    node-test:
-        runs-on: ubuntu-latest
+    test-wasm:
+        name: Run ${{ matrix.runtime }} tests on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
         needs: wasm-build
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, macos-latest, windows-latest]
+                runtime: [node, deno, bun]
         steps:
             - uses: actions/checkout@v6
+            - uses: taiki-e/install-action@v2
+              with:
+                  tool: just
             - uses: actions/download-artifact@v7
               with:
                   name: build
                   path: pkg/
-
             - uses: actions/setup-node@v6
+              if: matrix.runtime == 'node'
               with:
                   node-version-file: ".node-version"
-
-            - run: node --test "**/test_node/*.mjs"
-
-    deno-test:
-        runs-on: ubuntu-latest
-        needs: wasm-build
-        steps:
-            - uses: actions/checkout@v6
-            - uses: actions/download-artifact@v7
-              with:
-                  name: build
-                  path: pkg/
-
-            - uses: denoland/setup-deno@v1
+            - uses: denoland/setup-deno@v2
+              if: matrix.runtime == 'deno'
               with:
                   deno-version: 2.x
-
-            - run: deno test --allow-read
-
-    bun-test:
-        runs-on: ubuntu-latest
-        needs: wasm-build
-        steps:
-            - uses: actions/checkout@v6
-            - uses: actions/download-artifact@v7
-              with:
-                  name: build
-                  path: pkg/
-
             - uses: oven-sh/setup-bun@v2
+              if: matrix.runtime == 'bun'
               name: Install bun
 
-            - run: bun test test_bun
+            - run: just test-${{ matrix.runtime }}

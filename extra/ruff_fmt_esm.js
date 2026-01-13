@@ -1,11 +1,9 @@
 /* @ts-self-types="./ruff_fmt.d.ts" */
-import { readFileSync } from "node:fs";
+// prettier-ignore
+import source wasmModule from "./ruff_fmt_bg.wasm";
+
 import * as import_bg from "./ruff_fmt_bg.js";
 const { __wbg_set_wasm, format, format_range, ...wasmImport } = import_bg;
-
-const wasmUrl = new URL("ruff_fmt_bg.wasm", import.meta.url);
-const wasmBytes = readFileSync(wasmUrl);
-const wasmModule = new WebAssembly.Module(wasmBytes);
 
 function getImports() {
 	return {
@@ -14,11 +12,11 @@ function getImports() {
 	};
 }
 
-/**
- * @import * as WASM from "./ruff_fmt.wasm"
- */
-
 const instance = new WebAssembly.Instance(wasmModule, getImports());
+
+/**
+ * @import * as WASM from "./ruff_fmt_bg.wasm"
+ */
 
 /**
  * @type {WASM}

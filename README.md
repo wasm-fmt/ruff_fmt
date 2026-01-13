@@ -16,10 +16,10 @@ npx jsr add @fmt/ruff-fmt
 
 # Usage
 
-```javascript
-import init, { format } from "@wasm-fmt/ruff_fmt";
+## Node.js / Deno / Bun / Bundler
 
-await init();
+```javascript
+import { format } from "@wasm-fmt/ruff_fmt";
 
 const input = `x = {  'a':37,'b':42,
 
@@ -36,51 +36,66 @@ class foo  (     object  ):
 def f  (   a ) :
   return      37+-+a[42-x :  y**3]`;
 
-const formatted = format(input);
-console.log(formatted);
-```
-
-with custom options:
-
-```javascript
-import init, { format } from "@wasm-fmt/ruff_fmt";
-
-// ...
 const formatted = format(input, "main.py", {
-    indent_style: "space",
-    indent_width: 4,
-    line_width: 88,
-    quote_style: "double",
-    magic_trailing_comma: "respect",
+	indent_style: "space",
+	indent_width: 4,
+	line_width: 88,
+	quote_style: "double",
+	magic_trailing_comma: "respect",
 });
 console.log(formatted);
 ```
 
-For Vite users:
+## Node.js < 22.19
+
+```JavaScript
+import { format } from "@wasm-fmt/ruff_fmt/node";
+```
+
+## Web
+
+For web environments, you need to initialize WASM module manually:
+
+```javascript
+import init, { format } from "@wasm-fmt/ruff_fmt/web";
+
+await init();
+
+const input = `x = {  'a':37,'b':42,
+
+'c':927}`;
+
+const formatted = format(input, "main.py");
+console.log(formatted);
+```
+
+### Vite
+
+```JavaScript
+import init, { format } from "@wasm-fmt/ruff_fmt/vite";
+
+await init();
+// ...
+```
 
 Add `"@wasm-fmt/ruff_fmt"` to `optimizeDeps.exclude` in your vite config:
 
 ```JSON
 {
-    "optimizeDeps": {
-        "exclude": ["@wasm-fmt/ruff_fmt"]
-    }
+	"optimizeDeps": {
+		"exclude": ["@wasm-fmt/ruff_fmt"]
+	}
 }
 ```
 
-<details>
-<summary>
-If you cannot change the vite config, you can use another import entry
+## Entry Points
 
-</summary>
-
-```JavaScript
-import init, { format } from "@wasm-fmt/ruff_fmt/vite";
-
-// ...
-```
-
-</details>
+- `.` - Auto-detects environment (Node.js uses node, Webpack uses bundler, default is ESM)
+- `./node` - Node.js environment (no init required)
+- `./esm` - ESM environments like Deno (no init required)
+- `./bundler` - Bundlers like Webpack (no init required)
+- `./web` - Web browsers (requires manual init)
+- `./vite` - Vite bundler (requires manual init)
 
 # dprint plugin
 
