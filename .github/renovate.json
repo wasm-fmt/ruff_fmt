@@ -6,12 +6,8 @@
 	"packageRules": [
 		{
 			"groupName": "ruff dependencies",
-			"matchPackageNames": [
-				"ruff_formatter",
-				"ruff_python_ast",
-				"ruff_python_formatter",
-				"ruff_text_size"
-			]
+			"matchManagers": ["cargo"],
+			"matchPackageNames": ["astral-sh/ruff"]
 		}
 	]
 }
