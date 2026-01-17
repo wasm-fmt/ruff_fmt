@@ -102,10 +102,6 @@ Add `"@wasm-fmt/ruff_fmt"` to `optimizeDeps.exclude` in your vite config:
 > [!NOTE]
 > dpint plugin is deprecated, please use https://dprint.dev/plugins/ruff instead.
 
-```bash
-dprint config add wasm-fmt/ruff_fmt
-```
-
 # How does it work?
 
 [Ruff] is an extremely fast Python linter, written in Rust.
