@@ -17,7 +17,7 @@ version     = "0.14.11"
 
 [dependencies]
 getrandom             = { version = "0.3.1", features = ["wasm_js"] }
-ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
+ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.13" }
 ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
 ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
 serde                 = { version = "1.0", features = ["derive"] }
