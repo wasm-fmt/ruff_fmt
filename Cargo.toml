@@ -19,7 +19,7 @@ version     = "0.14.11"
 getrandom             = { version = "0.3.1", features = ["wasm_js"] }
 ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
 ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
-ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.11" }
+ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.14.13" }
 serde                 = { version = "1.0", features = ["derive"] }
 serde-wasm-bindgen    = "0.6"
 serde_json            = { version = "1.0", features = ["preserve_order"] }
