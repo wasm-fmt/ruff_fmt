@@ -1,0 +1,22 @@
+{
+	"$schema": "https://jsr.io/schema/config-file.v1.json",
+	"name": "@fmt/ruff-fmt",
+	"version": "0.14.13",
+	"exports": {
+		".": "./ruff_fmt.js",
+		"./esm": "./ruff_fmt_esm.js",
+		"./node": "./ruff_fmt_node.js",
+		"./bundler": "./ruff_fmt.js",
+		"./web": "./ruff_fmt_web.js"
+	},
+	"publish": {
+		"include": [
+			"ruff_fmt_*",
+			"ruff_fmt.*",
+			"README.md"
+		],
+		"exclude": [
+			"!*"
+		]
+	}
+}

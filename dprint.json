@@ -3,7 +3,9 @@
 	"indentWidth": 4,
 	"lineWidth": 120,
 	"newLineKind": "lf",
-	"json": {},
+	"json": {
+		"trailingCommas": "never"
+	},
 	"markdown": {},
 	"oxc": {},
 	"excludes": [

@@ -32,13 +32,13 @@ test-all: test-rust test-wasm
 build:
 	wasm-pack build --scope=wasm-fmt .
 	cp -R ./extra/. ./pkg/
-	node ./scripts/package.mjs ./pkg/package.json
+	node ./scripts/patch.mjs
 
 [windows]
 build:
 	wasm-pack build --scope=wasm-fmt .
 	Copy-Item -Recurse -Force ./extra/* ./pkg/
-	node ./scripts/package.mjs ./pkg/package.json
+	node ./scripts/patch.mjs
 
 fmt:
 	cargo fmt --all
@@ -71,6 +71,7 @@ version bump_or_version:
 	fi
 
 	VERSION=$(cargo pkgid | sed 's/.*[#@]//')
+	node ./scripts/sync_version.mjs "${VERSION}"
 
 	git add -A
 	git commit -m "${VERSION}"

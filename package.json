@@ -1,0 +1,64 @@
+{
+	"name": "@wasm-fmt/ruff_fmt",
+	"type": "module",
+	"collaborators": [
+		"magic-akari <akari.ccino@gmail.com>"
+	],
+	"description": "A WASM Based Python Formatter",
+	"version": "0.14.13",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wasm-fmt/ruff_fmt"
+	},
+	"homepage": "https://github.com/wasm-fmt/ruff_fmt",
+	"types": "ruff_fmt.d.ts",
+	"sideEffects": [
+		"./ruff_fmt.js",
+		"./ruff_fmt_node.js",
+		"./ruff_fmt_esm.js"
+	],
+	"keywords": [
+		"wasm",
+		"ruff",
+		"python",
+		"formatter"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"exports": {
+		".": {
+			"types": "./ruff_fmt.d.ts",
+			"webpack": "./ruff_fmt.js",
+			"deno": "./ruff_fmt.js",
+			"bun": "./ruff_fmt_node.js",
+			"module-sync": "./ruff_fmt_node.js",
+			"node": "./ruff_fmt_node.js",
+			"default": "./ruff_fmt_esm.js"
+		},
+		"./esm": {
+			"types": "./ruff_fmt.d.ts",
+			"default": "./ruff_fmt_esm.js"
+		},
+		"./node": {
+			"types": "./ruff_fmt.d.ts",
+			"default": "./ruff_fmt_node.js"
+		},
+		"./bundler": {
+			"types": "./ruff_fmt.d.ts",
+			"default": "./ruff_fmt.js"
+		},
+		"./web": {
+			"types": "./ruff_fmt_web.d.ts",
+			"default": "./ruff_fmt_web.js"
+		},
+		"./vite": {
+			"types": "./ruff_fmt_web.d.ts",
+			"default": "./ruff_fmt_vite.js"
+		},
+		"./wasm": "./ruff_fmt_bg.wasm",
+		"./package.json": "./package.json",
+		"./*": "./*"
+	}
+}
