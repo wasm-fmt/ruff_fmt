@@ -50,6 +50,7 @@ check:
 	cargo clippy --all -- -D warnings
 	cargo fmt --all --check
 	taplo fmt --check .
+	dprint check
 
 audit:
 	cargo audit
