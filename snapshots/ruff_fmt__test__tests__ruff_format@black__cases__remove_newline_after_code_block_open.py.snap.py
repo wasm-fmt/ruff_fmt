@@ -2,20 +2,24 @@ import random
 
 
 def foo1():
+
     print("The newline above me should be kept!")
 
 
 def foo2():
+
     print("All the newlines above me should be kept!")
 
 
 def foo3():
+
     print("No newline above me!")
 
     print("There is a newline above me, and that's OK!")
 
 
 def foo4():
+
     # There is a comment here
 
     print("The newline above me should not be deleted!")
@@ -23,6 +27,7 @@ def foo4():
 
 class Foo:
     def bar(self):
+
         print("The newline above me should be kept!")
 
 

@@ -1,4 +1,5 @@
 def http_status(status):
+
     match status:
         case 400:
             return "Bad request"

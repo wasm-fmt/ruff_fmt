@@ -82,12 +82,14 @@ class ClassB:
 
 class ClassC:
     def f(self):
+
         ...
         # Comment
 
 
 class ClassD:
     def f(self):  # Comment 1
+
         ...  # Comment 2
         # Comment 3
 
@@ -104,6 +106,7 @@ class ClassF:
 
 class ClassG:
     def f(self):  # Comment 1
+
         ...  # Comment 2
 
 

@@ -253,6 +253,7 @@ class Path:
 
 
 def fakehttp():
+
     class FakeHTTPConnection:
         if mock_close:
 
@@ -388,18 +389,22 @@ def overload4(a: int): ...
 
 # In preview, we preserve these newlines at the start of functions:
 def preserved1():
+
     return 1
 
 
 def preserved2():
+
     pass
 
 
 def preserved3():
+
     def inner(): ...
 
 
 def preserved4():
+
     def inner():
         print("with a body")
         return 1
@@ -408,17 +413,20 @@ def preserved4():
 
 
 def preserved5():
+
     ...
     # trailing comment prevents collapsing the stub
 
 
 def preserved6():
+
     # Comment
 
     return 1
 
 
 def preserved7():
+
     # comment
     # another line
     # and a third
@@ -427,6 +435,7 @@ def preserved7():
 
 
 def preserved8():  # this also prevents collapsing the stub
+
     ...
 
 
@@ -445,6 +454,7 @@ def removed3(): ...  # trailing same-line comment does not prevent collapsing th
 
 # And we discard empty lines after the first:
 def partially_preserved1():
+
     return 1
 
 

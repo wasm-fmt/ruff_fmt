@@ -32,22 +32,26 @@ def foo():
 
 
 def bar():
+
     if x:
         a = 123
 
 
 def baz():
+
     # OK
     if x:
         a = 123
 
 
 def quux():
+
     new_line = here
 
 
 class Cls:
     def method(self):
+
         pass
 
 
@@ -64,5 +68,6 @@ def top_level(
     a: int,
     b: str,
 ) -> Whatever[Generic, Something]:
+
     def nested(x: int) -> int:
         pass

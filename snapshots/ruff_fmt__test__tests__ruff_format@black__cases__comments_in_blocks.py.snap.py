@@ -5,22 +5,25 @@
 # - https://github.com/psf/black/issues/563
 
 (
-    lambda:
-    # a comment
-    None
+    lambda: (
+        # a comment
+        None
+    )
 )
 
 (
-    lambda:
-    # b comment
-    None
+    lambda: (
+        # b comment
+        None
+    )
 )
 
 (
-    lambda:
-    # a comment
-    # b comment
-    None
+    lambda: (
+        # a comment
+        # b comment
+        None
+    )
 )
 
 [

@@ -23,7 +23,7 @@ def a6():
 
 
 def a7():
-    """Doesn't need chaperone\" """
+    """Doesn't need chaperone\""""
 
 
 def a8():
@@ -31,7 +31,7 @@ def a8():
 
 
 def a9():
-    """Doesn't need chaperone\\\" """
+    """Doesn't need chaperone\\\""""
 
 
 def a10():
@@ -51,7 +51,7 @@ def a12():
 
 
 def a13():
-    """Doesn't need chaperone\\\"\"\" """
+    """Doesn't need chaperone\\\"\"\""""
 
 
 def a14():

@@ -116,13 +116,11 @@ data = yaml.load(
 MULTILINE = """
 foo
 """.replace("\n", "")
-generated_readme = (
-    lambda project_name: """
+generated_readme = lambda project_name: """
 {}
 
 <Add content here!>
 """.strip().format(project_name)
-)
 parser.usage += """
 Custom extra help summary.
 
@@ -238,18 +236,6 @@ msg = f"""The arguments {bad_arguments} were passed in.
 Please use `--build-option` instead,
 `--global-option` is reserved to flags like `--verbose` or `--quiet`.
 """
-
-this_will_become_one_line = "abc"
-
-this_will_stay_on_three_lines = (
-    "a"  # comment
-    "b"
-    "c"
-)
-
-this_will_also_become_one_line = (  # comment
-    "abc"
-)
 
 assert some_var == expected_result, """
 test
