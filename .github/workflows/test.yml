@@ -57,7 +57,7 @@ jobs:
             - run: npm pack
               working-directory: pkg
             - name: Upload
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v7
               with:
                   name: build
                   path: pkg
@@ -76,7 +76,7 @@ jobs:
             - uses: taiki-e/install-action@v2
               with:
                   tool: just
-            - uses: actions/download-artifact@v7
+            - uses: actions/download-artifact@v8
               with:
                   name: build
                   path: pkg/
