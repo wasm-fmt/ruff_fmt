@@ -72,14 +72,10 @@ await init();
 // ...
 ```
 
-Add `"@wasm-fmt/ruff_fmt"` to `optimizeDeps.exclude` in your vite config:
+Or use the `./bundler` entry with [vite-plugin-wasm](https://www.npmjs.com/package/vite-plugin-wasm)
 
-```JSON
-{
-	"optimizeDeps": {
-		"exclude": ["@wasm-fmt/ruff_fmt"]
-	}
-}
+```javascript
+import { format } from "@wasm-fmt/ruff_fmt/bundler";
 ```
 
 ## Entry Points
