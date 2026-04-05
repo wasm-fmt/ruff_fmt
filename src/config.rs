@@ -8,8 +8,8 @@ use ruff_formatter::{
     IndentStyle as RuffIndentStyle,
 };
 use ruff_python_formatter::{
-    DocstringCode, DocstringCodeLineWidth, MagicTrailingComma, PreviewMode, PyFormatOptions,
-    QuoteStyle,
+    DocstringCode, DocstringCodeLineWidth, MagicTrailingComma, NestedStringQuoteStyle, PreviewMode,
+    PyFormatOptions, QuoteStyle,
 };
 
 use serde::{Deserialize, Serialize};
@@ -74,16 +74,36 @@ interface LayoutConfig {
 export interface Config extends LayoutConfig {
     /** The preferred quote style to use (single vs double quotes) */
     quote_style?: "single" | "double" | "preserve";
-    /** Whether to expand lists or elements if they have a trailing comma */
+    /** Whether to expand lists or elements if they have a trailing comma such as `(a, b,)` */
     magic_trailing_comma?: "respect" | "ignore";
-    /** Whether to format code snippets in docstrings or not */
+    /**
+     * Whether to format code snippets in docstrings or not.
+     *
+     * By default this is disabled (opt-in), but the plan is to make this
+     * enabled by default (opt-out) in the future.
+     */
     docstring_code?: boolean;
-    /** The preferred line width at which the formatter should wrap lines in docstring code examples */
+    /**
+     * The preferred line width at which the formatter should wrap lines in
+     * docstring code examples. This only has an impact when `docstring_code`
+     * is enabled.
+     */
     docstring_code_line_width?: number | "dynamic";
-    /** Whether the formatter should generate a source map */
+    /**
+     * Should the formatter generate a source map that allows mapping source positions to positions
+     * in the formatted document.
+     */
     source_map_generation?: boolean;
     /** Whether preview style formatting is enabled or not */
     preview?: boolean;
+    /**
+     * Controls the quote style for nested strings in Python 3.12+.
+     *
+     * When set to `alternating` (default), Ruff will alternate quote styles for nested strings
+     * inside interpolated string expressions. When set to `preferred`, Ruff will use
+     * the configured `quote-style`.
+     */
+    nested_string_quote_style?: "alternating" | "preferred";
 }"#;
 
 #[derive(Default, Clone, Deserialize, Serialize)]
@@ -136,6 +156,13 @@ pub struct LanguageOptions {
 
     /// Whether preview style formatting is enabled or not
     preview: Option<PreviewMode>,
+
+    /// Controls the quote style for nested strings in Python 3.12+.
+    ///
+    /// When set to `alternating` (default), Ruff will alternate quote styles for nested strings
+    /// inside interpolated string expressions. When set to `preferred`, Ruff will use
+    /// the configured `quote-style`.
+    nested_string_quote_style: Option<NestedStringQuoteStyle>,
 }
 
 #[derive(Default, Clone, Deserialize, Serialize)]
@@ -195,6 +222,9 @@ impl From<Config> for PyFormatOptions {
         }
         if let Some(preview) = value.language.preview {
             config = config.with_preview(preview);
+        }
+        if let Some(nested_string_quote_style) = value.language.nested_string_quote_style {
+            config = config.with_nested_string_quote_style(nested_string_quote_style);
         }
 
         config
