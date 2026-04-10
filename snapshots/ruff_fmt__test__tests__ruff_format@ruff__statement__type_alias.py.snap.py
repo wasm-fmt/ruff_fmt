@@ -240,3 +240,10 @@ type short_bound_long_default[
         eeeeeee,
     )
 ] = int
+
+# Preserve parentheses around invalid type expressions.
+type NamedExprValue = (value := int)
+
+
+async def preserve_await_type_alias_value():
+    type AwaitValue = (await g())

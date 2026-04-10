@@ -538,27 +538,15 @@ if t"aaaaaaaaaaa {ttttteeeeeeeeest} more {  # comment
 }":
     pass
 
-if t"aaaaaaaaaaa {
-    [
-        ttttteeeeeeeeest,
-    ]
-} more {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}":
+if t"aaaaaaaaaaa {[ttttteeeeeeeeest]} more {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}":
     pass
 
-if t"aaaaaaaaaaa {
-    [
-        ttttteeeeeeeeest,
-    ]
-} more {
+if t"aaaaaaaaaaa {[ttttteeeeeeeeest]} more {
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 }":
     pass
 
-if t"aaaaaaaaaaa {
-    [
-        ttttteeeeeeeeest,
-    ]
-} more {
+if t"aaaaaaaaaaa {[ttttteeeeeeeeest]} more {
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 }":
     pass
