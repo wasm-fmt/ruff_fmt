@@ -1014,7 +1014,7 @@ dependencies = [
 
 [[package]]
 name = "ruff_fmt"
-version = "0.15.16"
+version = "0.15.18"
 dependencies = [
  "getrandom",
  "insta",
