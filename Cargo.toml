@@ -17,9 +17,9 @@ version     = "0.15.18"
 
 [dependencies]
 getrandom             = "0.4"
-ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.18" }
-ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.18" }
-ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.18" }
+ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.20" }
+ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.20" }
+ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.20" }
 serde                 = { version = "1.0", features = ["derive"] }
 serde-wasm-bindgen    = "0.6"
 serde_json            = { version = "1.0", features = ["preserve_order"] }
