@@ -1,11 +1,11 @@
 use std::{
-    num::{NonZeroU16, NonZeroU8},
+    num::{NonZeroU8, NonZeroU16},
     path::Path,
 };
 
 use ruff_formatter::{
-    printer::{LineEnding as RuffLineEnding, SourceMapGeneration},
     IndentStyle as RuffIndentStyle,
+    printer::{LineEnding as RuffLineEnding, SourceMapGeneration},
 };
 use ruff_python_formatter::{
     DocstringCode, DocstringCodeLineWidth, MagicTrailingComma, NestedStringQuoteStyle, PreviewMode,
@@ -13,7 +13,6 @@ use ruff_python_formatter::{
 };
 
 use serde::{Deserialize, Serialize};
-use wasm_bindgen::prelude::wasm_bindgen;
 
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
@@ -56,55 +55,6 @@ impl From<LineEnding> for RuffLineEnding {
         }
     }
 }
-
-#[wasm_bindgen(typescript_custom_section)]
-const TS_Config: &'static str = r#"
-interface LayoutConfig {
-    /** Specifies the indent style: Either a tab or a specific amount of spaces */
-    indent_style?: "tab" | "space";
-    /** The visual width of a tab character */
-    indent_width?: number;
-    /** The preferred line width at which the formatter should wrap lines */
-    line_width?: number;
-    /** The type of line ending to apply to the printed input */
-    line_ending?: "lf" | "crlf";
-}
-
-/** Configuration for the Python formatter */
-export interface Config extends LayoutConfig {
-    /** The preferred quote style to use (single vs double quotes) */
-    quote_style?: "single" | "double" | "preserve";
-    /** Whether to expand lists or elements if they have a trailing comma such as `(a, b,)` */
-    magic_trailing_comma?: "respect" | "ignore";
-    /**
-     * Whether to format code snippets in docstrings or not.
-     *
-     * By default this is disabled (opt-in), but the plan is to make this
-     * enabled by default (opt-out) in the future.
-     */
-    docstring_code?: boolean;
-    /**
-     * The preferred line width at which the formatter should wrap lines in
-     * docstring code examples. This only has an impact when `docstring_code`
-     * is enabled.
-     */
-    docstring_code_line_width?: number | "dynamic";
-    /**
-     * Should the formatter generate a source map that allows mapping source positions to positions
-     * in the formatted document.
-     */
-    source_map_generation?: boolean;
-    /** Whether preview style formatting is enabled or not */
-    preview?: boolean;
-    /**
-     * Controls the quote style for nested strings in Python 3.12+.
-     *
-     * When set to `alternating` (default), Ruff will alternate quote styles for nested strings
-     * inside interpolated string expressions. When set to `preferred`, Ruff will use
-     * the configured `quote-style`.
-     */
-    nested_string_quote_style?: "alternating" | "preferred";
-}"#;
 
 #[derive(Default, Clone, Deserialize, Serialize)]
 pub struct LayoutConfig {
@@ -165,6 +115,7 @@ pub struct LanguageOptions {
     nested_string_quote_style: Option<NestedStringQuoteStyle>,
 }
 
+#[bridge::config]
 #[derive(Default, Clone, Deserialize, Serialize)]
 pub struct Config {
     #[serde(flatten)]
@@ -175,6 +126,16 @@ pub struct Config {
 
     #[serde(skip)]
     path: String,
+}
+
+impl bridge::Config for Config {
+    fn decode(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.is_empty() {
+            return Ok(Self::default());
+        }
+
+        serde_json::from_slice(bytes).map_err(|err| err.to_string())
+    }
 }
 
 impl Config {
@@ -200,10 +161,10 @@ impl From<Config> for PyFormatOptions {
         if let Some(line_ending) = value.layout.line_ending {
             config = config.with_line_ending(line_ending.into());
         }
-        if let Some(target_version) = value.language.target_version {
-            if let Ok(version) = target_version.parse() {
-                config = config.with_target_version(version);
-            }
+        if let Some(target_version) = value.language.target_version
+            && let Ok(version) = target_version.parse()
+        {
+            config = config.with_target_version(version);
         }
         if let Some(quote_style) = value.language.quote_style {
             config = config.with_quote_style(quote_style);

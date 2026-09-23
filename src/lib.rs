@@ -3,121 +3,61 @@ mod test;
 
 pub mod config;
 
+use std::ops::Range;
+
+use bridge::{FormatResult, TextEdit};
 use config::Config as InnerConfig;
-use ruff_python_formatter::format_module_source;
-use ruff_python_formatter::format_range as ruff_format_range;
-use ruff_text_size::TextRange as RuffTextRange;
-use serde::{Deserialize, Serialize};
-use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen(typescript_custom_section)]
-const TS_Types: &'static str = r#"
-/**
- * A range in text, using UTF-8 byte offsets.
- */
-export interface TextRange {
-	start: number;
-	end: number;
-}
-
-/**
- * Result of formatting a range of code.
- */
-export interface PrintedRange {
-	code: string;
-	source_range: TextRange;
-}"#;
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(typescript_type = "Config")]
-    pub type JsConfig;
-
-    #[wasm_bindgen(typescript_type = "TextRange")]
-    pub type JsTextRange;
-
-    #[wasm_bindgen(typescript_type = "PrintedRange")]
-    pub type JsPrintedRange;
-}
+use ruff_python_formatter::{format_module_source, format_range as format_python_range};
+use ruff_text_size::{TextRange, TextSize};
 
 /// Format the entire Python source code string.
-#[wasm_bindgen]
-pub fn format(
-    input: &str,
-    path: Option<String>,
-    config: Option<JsConfig>,
-) -> Result<String, String> {
-    let mut config: InnerConfig = config
-        .map(|c| serde_wasm_bindgen::from_value(c.into()).map_err(|e| e.to_string()))
-        .transpose()?
-        .unwrap_or_default();
-
-    if let Some(path) = path {
-        config = config.with_path(path);
-    }
-
-    format_module_source(input, config.into())
+#[bridge::formatter]
+fn format(source: &str, filename: Option<&str>, config: &InnerConfig) -> Result<String, String> {
+    format_module_source(source, format_options(config, filename))
         .map(|result| result.into_code())
         .map_err(|err| err.to_string())
 }
 
-#[derive(Serialize, Deserialize, Copy, Clone)]
-pub struct TextRange {
-    pub start: u32,
-    pub end: u32,
-}
+/// Format one byte range and return Ruff's actual replacement range.
+#[bridge::formatter]
+fn format_range(
+    source: &str,
+    ranges: &[Range<u32>],
+    filename: Option<&str>,
+    config: &InnerConfig,
+) -> Result<FormatResult, String> {
+    let [range] = ranges else {
+        if ranges.is_empty() {
+            return Ok(FormatResult::Unchanged);
+        }
+        return Err("Ruff range formatting currently accepts exactly one range".to_string());
+    };
 
-impl From<RuffTextRange> for TextRange {
-    fn from(range: RuffTextRange) -> Self {
-        Self { start: range.start().into(), end: range.end().into() }
-    }
-}
+    let requested_range = TextRange::new(TextSize::new(range.start), TextSize::new(range.end));
+    let printed = format_python_range(source, requested_range, format_options(config, filename))
+        .map_err(|err| err.to_string())?;
+    let source_range = printed.source_range();
+    let text = printed.into_code();
 
-impl From<TextRange> for RuffTextRange {
-    fn from(range: TextRange) -> Self {
-        Self::new(range.start.into(), range.end.into())
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-pub struct PrintedRange {
-    pub code: String,
-    pub source_range: TextRange,
-}
-
-impl From<ruff_formatter::PrintedRange> for PrintedRange {
-    fn from(range: ruff_formatter::PrintedRange) -> Self {
-        Self { source_range: range.source_range().into(), code: range.into_code() }
-    }
-}
-
-/// Format a specific range of the Python source code string.
-#[wasm_bindgen(unchecked_return_type = "PrintedRange")]
-pub fn format_range(
-    input: &str,
-    range: JsTextRange,
-    path: Option<String>,
-    config: Option<JsConfig>,
-) -> Result<JsValue, JsValue> {
-    let text_range: TextRange = serde_wasm_bindgen::from_value(range.into())
-        .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-    let mut config: InnerConfig = config
-        .map(|c| serde_wasm_bindgen::from_value(c.into()).map_err(|e| e.to_string()))
-        .transpose()?
-        .unwrap_or_default();
-
-    if let Some(path) = path {
-        config = config.with_path(path);
+    if source_range.is_empty() && text.is_empty() {
+        return Ok(FormatResult::Unchanged);
     }
 
-    let range = text_range.into();
-    let config = config.into();
+    Ok(FormatResult::PartialUpdate(vec![TextEdit {
+        range: u32::from(source_range.start())..u32::from(source_range.end()),
+        text,
+    }]))
+}
 
-    let result =
-        ruff_format_range(input, range, config).map_err(|e| JsValue::from_str(&e.to_string()))?;
+fn format_options(
+    config: &InnerConfig,
+    filename: Option<&str>,
+) -> ruff_python_formatter::PyFormatOptions {
+    let mut config = config.clone();
 
-    let printed_range = PrintedRange::from(result);
+    if let Some(filename) = filename {
+        config = config.with_path(filename.to_owned());
+    }
 
-    serde_wasm_bindgen::to_value(&printed_range).map_err(|e| JsValue::from_str(&e.to_string()))
+    config.into()
 }

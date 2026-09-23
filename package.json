@@ -6,7 +6,7 @@
 	],
 	"description": "A WASM Based Python Formatter",
 	"version": "0.15.20",
-	"license": "MIT",
+	"license": "MIT OR Apache-2.0",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/wasm-fmt/ruff_fmt.git"
@@ -26,6 +26,15 @@
 	],
 	"publishConfig": {
 		"access": "public"
+	},
+	"dependencies": {
+		"@wasm-fmt/runtime": "0.0.1"
+	},
+	"devDependencies": {
+		"@wasm-fmt/bindgen": "0.0.1"
+	},
+	"scripts": {
+		"build:bindings": "wasm-fmt-bindgen"
 	},
 	"exports": {
 		".": {
@@ -54,11 +63,15 @@
 			"default": "./ruff_fmt_web.js"
 		},
 		"./vite": {
-			"types": "./ruff_fmt_web.d.ts",
+			"types": "./ruff_fmt_vite.d.ts",
 			"default": "./ruff_fmt_vite.js"
 		},
 		"./wasm": "./ruff_fmt_bg.wasm",
 		"./package.json": "./package.json",
 		"./*": "./*"
+	},
+	"author": "magic-akari <akari.ccino@gmail.com>",
+	"bugs": {
+		"url": "https://github.com/wasm-fmt/ruff_fmt/issues"
 	}
 }

@@ -2,7 +2,7 @@
 mod tests {
     use std::{fs::File, io::Read};
 
-    use crate::format;
+    use crate::{config::Config, format};
 
     #[test]
     fn ruff_format() {
@@ -15,7 +15,8 @@ mod tests {
                     .and_then(|mut file| file.read_to_string(&mut input))
                     .unwrap();
 
-                let output = format(&input, Some(path.to_string_lossy().to_string()), None).unwrap();
+                let path_string = path.to_string_lossy();
+                let output = format(&input, Some(path_string.as_ref()), &Config::default()).unwrap();
                 let ext = match path.extension().and_then(|e| e.to_str()) {
                     Some("py") => ".py",
                     Some("pyi") => ".pyi",

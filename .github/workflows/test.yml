@@ -36,6 +36,13 @@ jobs:
             - uses: taiki-e/install-action@ba47c86ac325773530516bb756137ac718732518 # v2.86.5
               with:
                   tool: dprint,taplo,just
+            - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+              with:
+                  deno-version: 2.x
+            - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+              with:
+                  node-version-file: ".node-version"
+            - run: npm install --ignore-scripts --no-package-lock
             - run: just check
             - run: just test-rust
 
@@ -60,7 +67,11 @@ jobs:
                   persist-credentials: false
             - uses: taiki-e/install-action@ba47c86ac325773530516bb756137ac718732518 # v2.86.5
               with:
-                  tool: wasm-pack,just
+                  tool: just
+            - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+              with:
+                  node-version-file: ".node-version"
+            - run: npm install --ignore-scripts --no-package-lock
             - name: Build wasm
               run: just build
             - run: npm pack
@@ -92,7 +103,6 @@ jobs:
                   name: build
                   path: pkg/
             - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-              if: matrix.runtime == 'node'
               with:
                   node-version-file: ".node-version"
             - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
@@ -103,4 +113,5 @@ jobs:
               if: matrix.runtime == 'bun'
               name: Install bun
 
+            - run: npm install --ignore-scripts --no-package-lock
             - run: just test-${{ matrix.runtime }}

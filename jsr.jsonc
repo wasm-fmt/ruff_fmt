@@ -13,10 +13,13 @@
 		"include": [
 			"ruff_fmt_*",
 			"ruff_fmt.*",
-			"README.md"
+			"README.md",
+			"LICENSE-MIT",
+			"LICENSE-APACHE"
 		],
 		"exclude": [
 			"!*"
 		]
-	}
+	},
+	"license": "MIT OR Apache-2.0"
 }

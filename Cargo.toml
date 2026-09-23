@@ -1,30 +1,23 @@
 [package]
 authors     = ["magic-akari <akari.ccino@gmail.com>"]
 description = "A WASM Based Python Formatter"
-edition     = "2021"
+edition     = "2024"
 homepage    = "https://github.com/wasm-fmt/ruff_fmt"
 keywords    = ["wasm", "ruff", "python", "formatter"]
-license     = "MIT"
+license     = "MIT OR Apache-2.0"
 name        = "ruff_fmt"
 readme      = "README.md"
 repository  = "https://github.com/wasm-fmt/ruff_fmt"
 version     = "0.15.20"
 
 
-	[package.metadata.wasm-pack.profile.release]
-	wasm-opt = ["-Os", "--enable-bulk-memory", "--enable-nontrapping-float-to-int"]
-
-
 [dependencies]
-getrandom             = "0.4"
+bridge               = { package = "wasm-fmt-fdk", version = "=0.0.1" }
 ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.22" }
 ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.22" }
 ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.22" }
 serde                 = { version = "1.0", features = ["derive"] }
-serde-wasm-bindgen    = "0.6"
 serde_json            = { version = "1.0", features = ["preserve_order"] }
-uuid                  = { version = "1", features = ["js"] }
-wasm-bindgen          = "0.2.114"
 
 [dev-dependencies]
 insta = { version = "1", features = ["glob"] }
@@ -43,3 +36,4 @@ strip         = "symbols" # set to `false` for debug information
 [patch.crates-io]
 regex          = { path = "crates/regex_patch" }
 unicode_names2 = { path = "crates/unicode_names2_patch" }
+web-time       = { path = "crates/web_time_patch" }

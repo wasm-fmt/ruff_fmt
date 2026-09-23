@@ -14,3 +14,6 @@ target/
 *.pdb
 
 deno.lock
+
+/pkg
+/node_modules

@@ -1,7 +1,7 @@
 * -text
 
 justfile -linguist-detectable
-extra/** -linguist-detectable
+bindings/** -linguist-detectable
 scripts/** -linguist-detectable
 test_*/** -linguist-detectable
 snapshots/** -linguist-detectable

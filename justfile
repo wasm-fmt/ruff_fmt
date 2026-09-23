@@ -30,15 +30,13 @@ test-all: test-rust test-wasm
 
 [unix]
 build:
-	wasm-pack build --scope=wasm-fmt .
-	cp -R ./extra/. ./pkg/
-	node ./scripts/patch.mjs
+	cargo build --target wasm32-unknown-unknown --release
+	npm run build:bindings
 
 [windows]
 build:
-	wasm-pack build --scope=wasm-fmt .
-	Copy-Item -Recurse -Force ./extra/* ./pkg/
-	node ./scripts/patch.mjs
+	cargo build --target wasm32-unknown-unknown --release
+	npm run build:bindings
 
 fmt:
 	cargo fmt --all
@@ -51,6 +49,7 @@ check:
 	cargo fmt --all --check
 	taplo fmt --check .
 	dprint check
+	deno check bindings/ruff_fmt_binding.js
 
 audit:
 	cargo audit

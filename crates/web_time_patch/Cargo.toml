@@ -1,0 +1,12 @@
+[package]
+name = "web-time"
+version = "1.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Host-neutral std::time compatibility for the ruff_fmt Bridge wasm"
+
+[features]
+serde = []
+
+[lib]
+path = "src/lib.rs"

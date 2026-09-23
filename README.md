@@ -87,6 +87,22 @@ import { format } from "@wasm-fmt/ruff_fmt/bundler";
 - `./web` - Web browsers (requires manual init)
 - `./vite` - Vite bundler (requires manual init)
 
+## Bridge experiment
+
+This branch exposes whole-file and range formatting through the wasm-fmt Bridge
+ABI. Ranges use UTF-8 byte offsets:
+
+```javascript
+import { formatRanges } from "@wasm-fmt/ruff_fmt";
+
+const source = "x=1\ny=2\n";
+const formatted = formatRanges(source, [{ start: 0, end: 3 }]);
+```
+
+Ruff currently accepts exactly one range per call. The Bridge API uses an array
+so formatters that support multiple ranges can expose that capability without a
+different wire format.
+
 # dprint plugin
 
 > [!NOTE]
