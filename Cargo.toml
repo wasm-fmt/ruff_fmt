@@ -29,7 +29,7 @@ crate-type = ["cdylib", "rlib"]
 codegen-units = 1
 debug         = false     # set to `true` for debug information
 lto           = true
-opt-level     = "s"
+opt-level     = 2
 panic         = "abort"   # Let it crash and force ourselves to write safe Rust.
 strip         = "symbols" # set to `false` for debug information
 
