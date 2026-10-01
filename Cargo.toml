@@ -13,9 +13,9 @@ version     = "0.15.20"
 
 [dependencies]
 bridge               = { package = "wasm-fmt-fdk", version = "=0.0.1" }
-ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.22" }
-ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.22" }
-ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.15.22" }
+ruff_formatter        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.16.10" }
+ruff_python_formatter = { git = "https://github.com/astral-sh/ruff.git", tag = "0.16.10" }
+ruff_text_size        = { git = "https://github.com/astral-sh/ruff.git", tag = "0.16.10" }
 serde                 = { version = "1.0", features = ["derive"] }
 serde_json            = { version = "1.0", features = ["preserve_order"] }
 
