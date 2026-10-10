@@ -31,7 +31,7 @@
 		"@wasm-fmt/runtime": "0.0.1"
 	},
 	"devDependencies": {
-		"@wasm-fmt/bindgen": "0.0.1"
+		"@wasm-fmt/bindgen": "0.1.0"
 	},
 	"scripts": {
 		"build:bindings": "wasm-fmt-bindgen"
