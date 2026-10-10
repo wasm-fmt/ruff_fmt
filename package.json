@@ -28,7 +28,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@wasm-fmt/runtime": "0.0.1"
+		"@wasm-fmt/runtime": "0.1.0"
 	},
 	"devDependencies": {
 		"@wasm-fmt/bindgen": "0.0.1"
