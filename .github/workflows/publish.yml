@@ -21,7 +21,7 @@ jobs:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
                   persist-credentials: false
-            - uses: taiki-e/install-action@ba47c86ac325773530516bb756137ac718732518 # v2.86.5
+            - uses: taiki-e/install-action@3a3daafd3b7f23b8f65d9f5ba2db203fb59b79e2 # v2.90.2
               with:
                   tool: just
             - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
